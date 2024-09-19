@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using Fiber.Managers;
 using Fiber.Utilities;
+using GamePlay.Boats;
 using UnityEngine;
+using Utilities;
 
 namespace HolderSystem
 {
@@ -40,6 +42,19 @@ namespace HolderSystem
 				if (!holderSlots[i].Boat)
 				{
 					return holderSlots[i];
+				}
+			}
+
+			return null;
+		}
+
+		public Boat GetBoatByType(ColorType colorType)
+		{
+			for (var i = 0; i < holderSlots.Count; i++)
+			{
+				if (holderSlots[i].Boat && holderSlots[i].Boat.ColorType == colorType)
+				{
+					return holderSlots[i].Boat;
 				}
 			}
 

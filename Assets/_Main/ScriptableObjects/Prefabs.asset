@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Prefabs
   m_EditorClassIdentifier: 
   HolderSlotPrefab: {fileID: 1474355562802939265, guid: a0b649163d8fa4e31b6945f79d59695f, type: 3}
+  CarPrefab: {fileID: 5050369800928782118, guid: cfd50929f794a4c119dcf65c067332a8, type: 3}
   BoatPrefabs:
     _serializedList:
     - Key: 0

@@ -10,6 +10,9 @@ namespace GamePlay.Boats
 		public void SetCar(Car car)
 		{
 			Car = car;
+			car.transform.SetParent(transform);
+			car.transform.localPosition = Vector3.zero;
+			car.transform.localRotation = Quaternion.identity;
 		}
 	}
 }

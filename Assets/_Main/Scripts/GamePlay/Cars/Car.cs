@@ -1,14 +1,20 @@
+using DG.Tweening;
 using Fiber.Managers;
 using UnityEngine;
 using Utilities;
 
 namespace GamePlay.Cars
 {
+	[SelectionBase]
 	public class Car : MonoBehaviour
 	{
+		public bool IsMoving { get; set; }
 		public ColorType ColorType { get; set; }
 
 		[SerializeField] private Renderer[] renderers;
+
+		[SerializeField] private float speed = 10;
+		[SerializeField] private float rotationSpeed = 10;
 
 		public void Setup(ColorType colorType)
 		{
@@ -23,6 +29,16 @@ namespace GamePlay.Cars
 			{
 				renderers[i].material = mat;
 			}
+		}
+
+		public Tween MovePath(Vector3[] path)
+		{
+			IsMoving = true;
+			return transform.DOPath(path, speed).SetSpeedBased(true).OnWaypointChange(value =>
+			{
+				// DOTween.Kill(gameObject.name + "_rotate");
+				transform.DOLookAt(path[value], .1f);
+			}).OnComplete(() => IsMoving = false);
 		}
 	}
 }

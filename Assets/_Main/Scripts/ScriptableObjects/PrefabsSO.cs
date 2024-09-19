@@ -1,6 +1,7 @@
 using AYellowpaper.SerializedCollections;
 using Fiber.Utilities;
 using GamePlay.Boats;
+using GamePlay.Cars;
 using HolderSystem;
 using UnityEngine;
 using Utilities;
@@ -11,6 +12,7 @@ namespace ScriptableObjects
 	public class PrefabsSO : ScriptableObject
 	{
 		public HolderSlot HolderSlotPrefab;
+		public Car CarPrefab;
 		public SerializedDictionary<BoatType, Boat> BoatPrefabs = new SerializedDictionary<BoatType, Boat>();
 	}
 }

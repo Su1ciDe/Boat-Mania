@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using Fiber.Managers;
 using Fiber.Utilities.Extensions;
+using GamePlay.Cars;
 using HolderSystem;
 using Lofelt.NiceVibrations;
 using Managers;
@@ -23,6 +24,7 @@ namespace GamePlay.Boats
 		public bool IsMoving { get; set; }
 		public bool IsInHolder { get; set; }
 		public bool IsLoadingCars { get; set; }
+		public bool IsCompleted { get; set; }
 
 		[field: Title("Properties")]
 		[field: SerializeField, ReadOnly] public BoatType BoatType;
@@ -48,9 +50,9 @@ namespace GamePlay.Boats
 		private const float HIGHLIGHT_DURATION = .25f;
 		private const float HIGHLIGHT_SCALE = 1.25f;
 
-		public event UnityAction OnBoatMoved;
+		public event UnityAction OnBoatArrived;
 		public static event UnityAction<Boat> OnBoatTapped;
-		public static event UnityAction<Boat> OnBoatMovedAny;
+		public static event UnityAction<Boat> OnBoatArrivedAny;
 
 		private void Move()
 		{
@@ -96,14 +98,15 @@ namespace GamePlay.Boats
 				pos = path.GetPointAtDistance(dist, EndOfPathInstruction.Stop);
 			}
 
-			// transform.DORotate()
 			transform.DOMove(new Vector3(holderSlot.transform.position.x, transform.position.y, transform.position.z), speed).SetSpeedBased(true).OnComplete(() =>
 			{
 				transform.DORotate(holderSlot.transform.eulerAngles, .25f);
 				transform.DOMove(holderSlot.transform.position, speed).SetSpeedBased(true).OnComplete(() =>
 				{
-					OnBoatMoved?.Invoke();
-					OnBoatMovedAny?.Invoke(this);
+					IsMoving = false;
+
+					OnBoatArrived?.Invoke();
+					OnBoatArrivedAny?.Invoke(this);
 				});
 			});
 		}
@@ -159,6 +162,7 @@ namespace GamePlay.Boats
 
 		private void ChangeColor(ColorType colorType)
 		{
+			if (!GameManager.Instance) return;
 			ColorType = colorType;
 			var mat = GameManager.Instance.ColorsSO.BoatColors[colorType];
 			for (var i = 0; i < renderers.Length; i++)
@@ -174,6 +178,20 @@ namespace GamePlay.Boats
 			}
 		}
 
+		public void SetCar(Car car)
+		{
+			var slot = GetFirstEmptySlot();
+			if (!slot) return;
+
+			slot.SetCar(car);
+
+			if (GetEmptySlotCount().Equals(0))
+			{
+				IsCompleted = true;
+				//TODO: complete boat and leave
+			}
+		}
+
 		public void Highlight()
 		{
 			// transform.DOComplete();
@@ -185,6 +203,33 @@ namespace GamePlay.Boats
 			// transform.DOKill();
 			// transform.DOScale(1, HIGHLIGHT_DURATION).SetEase(Ease.InBack).OnKill(() => { transform.localScale = Vector3.one; });
 		}
+
+		#region Helpers
+
+		public int GetEmptySlotCount()
+		{
+			int count = 0;
+			for (var i = 0; i < boatSlots.Length; i++)
+			{
+				if (!boatSlots[i].Car)
+					count++;
+			}
+
+			return count;
+		}
+
+		public BoatSlot GetFirstEmptySlot()
+		{
+			for (var i = 0; i < boatSlots.Length; i++)
+			{
+				if (!boatSlots[i].Car)
+					return boatSlots[i];
+			}
+
+			return null;
+		}
+
+		#endregion
 
 		#region Inputs
 

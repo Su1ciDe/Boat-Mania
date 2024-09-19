@@ -162,3 +162,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   renderers:
   - {fileID: 3991325107734318150}
+  speed: 20
+  rotationSpeed: 90

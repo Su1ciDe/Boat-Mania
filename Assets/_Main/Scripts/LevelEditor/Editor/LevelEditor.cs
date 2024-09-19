@@ -92,7 +92,6 @@ namespace LevelEditor
 				{
 					boat.transform.eulerAngles = new Vector3(0, 45);
 				}
-
 				GUILayout.EndHorizontal();
 
 				GUILayout.BeginHorizontal();
@@ -105,7 +104,6 @@ namespace LevelEditor
 				{
 					boat.transform.eulerAngles = new Vector3(0, 135);
 				}
-
 				GUILayout.EndHorizontal();
 			}
 			GUILayout.EndArea();

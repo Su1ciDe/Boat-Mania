@@ -159,16 +159,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90302fb06e7446f49b9a9d2d146f36ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BoatType: 0
+  <ColorType>k__BackingField: 0
   boatSlots: []
   rayPoints:
   - {fileID: 3428423919704671930}
   - {fileID: 4806965353040731583}
   model: {fileID: 6236970188223230938}
   col: {fileID: 6981661257312450598}
+  renderers: []
   boatLayerMask:
     serializedVersion: 2
     m_Bits: 128
-  speed: 20
+  speed: 25
   rotationSpeed: 20
   size: {x: 0, y: 0}
   crashAngle: 10
