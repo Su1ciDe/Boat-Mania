@@ -1,31 +1,45 @@
+using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using Fiber.Managers;
 using Fiber.Utilities.Extensions;
+using HolderSystem;
 using Lofelt.NiceVibrations;
+using Managers;
+using PathCreation;
 using TriInspector;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using Utilities;
 
 namespace GamePlay.Boats
 {
+	[SelectionBase]
 	public class Boat : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 	{
 		public static Boat SelectedBoat;
 
 		public bool IsMoving { get; set; }
 		public bool IsInHolder { get; set; }
+		public bool IsLoadingCars { get; set; }
+
+		[field: Title("Properties")]
+		[field: SerializeField, ReadOnly] public BoatType BoatType;
+		[field: SerializeField] public ColorType ColorType { get; private set; }
 
 		[Title("References")]
 		[SerializeField] private BoatSlot[] boatSlots;
 		[SerializeField] private Transform[] rayPoints;
 		[SerializeField] private Transform model;
+		[SerializeField] private Collider col;
+		[SerializeField] private Renderer[] renderers;
 		[Space]
 		[SerializeField] private LayerMask boatLayerMask;
 
 		[Title("Parameters")]
 		[SerializeField] private float speed = 5;
+		[SerializeField] private float rotationSpeed = 10;
 		[SerializeField] private Vector2 size;
 		[Space]
 		[SerializeField] private float crashAngle = 10;
@@ -34,19 +48,64 @@ namespace GamePlay.Boats
 		private const float HIGHLIGHT_DURATION = .25f;
 		private const float HIGHLIGHT_SCALE = 1.25f;
 
+		public event UnityAction OnBoatMoved;
 		public static event UnityAction<Boat> OnBoatTapped;
-		public static event UnityAction<Boat> OnBoatMoved;
-
-		private void Awake()
-		{
-		}
+		public static event UnityAction<Boat> OnBoatMovedAny;
 
 		private void Move()
 		{
-			if (!CheckIfBlockedByCar())
+			// Check if the boat can move. If it can't, crash into the front boat
+			if (CheckIfBlockedByCar()) return;
+
+			var slot = Holder.Instance.GetFirstEmptySlot();
+			if (!slot)
 			{
-				// TODO: move to path and to holder
+				//TODO: show message
+				return;
 			}
+
+			slot.SetBoat(this);
+
+			col.enabled = false;
+			IsMoving = true;
+			transform.DOMove(transform.position + 100 * transform.forward, speed).SetEase(Ease.Linear).SetSpeedBased(true).OnUpdate(() =>
+			{
+				var path = PathManager.Instance.FindPath(transform.position);
+				if (path.path is not null)
+				{
+					StartCoroutine(MoveToHolder(path.path.path, path.point, slot));
+				}
+			});
+		}
+
+		private IEnumerator MoveToHolder(VertexPath path, Vector3 point, HolderSlot holderSlot)
+		{
+			transform.DOKill();
+
+			var dist = path.GetClosestDistanceAlongPath(point);
+			var pos = path.GetPointAtDistance(dist, EndOfPathInstruction.Stop);
+			var prevPos = Vector3.zero;
+			while (prevPos != pos)
+			{
+				transform.position = pos;
+				transform.rotation = Quaternion.Lerp(transform.rotation, path.GetRotationAtDistance(dist, EndOfPathInstruction.Stop), rotationSpeed * Time.deltaTime);
+				dist += speed * Time.deltaTime;
+				yield return null;
+
+				prevPos = pos;
+				pos = path.GetPointAtDistance(dist, EndOfPathInstruction.Stop);
+			}
+
+			// transform.DORotate()
+			transform.DOMove(new Vector3(holderSlot.transform.position.x, transform.position.y, transform.position.z), speed).SetSpeedBased(true).OnComplete(() =>
+			{
+				transform.DORotate(holderSlot.transform.eulerAngles, .25f);
+				transform.DOMove(holderSlot.transform.position, speed).SetSpeedBased(true).OnComplete(() =>
+				{
+					OnBoatMoved?.Invoke();
+					OnBoatMovedAny?.Invoke(this);
+				});
+			});
 		}
 
 		private bool CheckIfBlockedByCar()
@@ -75,6 +134,7 @@ namespace GamePlay.Boats
 				transform.DOMove(transform.position + (hitDistance - size.y / 2f) * transform.forward, speed).SetEase(Ease.Linear).SetSpeedBased(true).OnComplete(() =>
 				{
 					//TODO: crash particle
+					var crashPos = transform.position + hitDistance * transform.forward;
 
 					for (var i = 0; i < hitBoats.Count; i++)
 					{
@@ -95,6 +155,35 @@ namespace GamePlay.Boats
 			//TODO: maybe change to be more linear
 			var dir = (boat.transform.position - transform.position).normalized;
 			transform.DOPunchRotation(crashAngle * dir, crashDuration, 4).SetTarget(transform);
+		}
+
+		private void ChangeColor(ColorType colorType)
+		{
+			ColorType = colorType;
+			var mat = GameManager.Instance.ColorsSO.BoatColors[colorType];
+			for (var i = 0; i < renderers.Length; i++)
+			{
+				if (Application.isPlaying)
+				{
+					renderers[i].material = mat;
+				}
+				else
+				{
+					renderers[i].sharedMaterial = mat;
+				}
+			}
+		}
+
+		public void Highlight()
+		{
+			// transform.DOComplete();
+			// transform.DOScale(HIGHLIGHT_SCALE, HIGHLIGHT_DURATION).SetEase(Ease.OutBack);
+		}
+
+		public void HideHighlight()
+		{
+			// transform.DOKill();
+			// transform.DOScale(1, HIGHLIGHT_DURATION).SetEase(Ease.InBack).OnKill(() => { transform.localScale = Vector3.one; });
 		}
 
 		#region Inputs
@@ -133,6 +222,7 @@ namespace GamePlay.Boats
 				HideHighlight();
 
 				Move();
+				OnBoatTapped?.Invoke(this);
 
 				HapticManager.Instance.PlayHaptic(HapticPatterns.PresetType.RigidImpact);
 			}
@@ -146,22 +236,18 @@ namespace GamePlay.Boats
 
 		#endregion
 
-		public void Highlight()
+#if UNITY_EDITOR
+		private void OnValidate()
 		{
-			// transform.DOComplete();
-			// transform.DOScale(HIGHLIGHT_SCALE, HIGHLIGHT_DURATION).SetEase(Ease.OutBack);
+			ChangeColor(ColorType);
 		}
-
-		public void HideHighlight()
-		{
-			// transform.DOKill();
-			// transform.DOScale(1, HIGHLIGHT_DURATION).SetEase(Ease.InBack).OnKill(() => { transform.localScale = Vector3.one; });
-		}
+#endif
 
 		#region Editor
 
-		private void SetupEditor()
+		public void SetupEditor(ColorType colorType)
 		{
+			ChangeColor(colorType);
 		}
 
 		#endregion

@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b6fe8b0136c459c95eeed15fb548567, type: 3}
+  m_Name: Prefabs
+  m_EditorClassIdentifier: 
+  HolderSlotPrefab: {fileID: 1474355562802939265, guid: a0b649163d8fa4e31b6945f79d59695f, type: 3}
+  BoatPrefabs:
+    _serializedList:
+    - Key: 0
+      Value: {fileID: 0}
+    - Key: 4
+      Value: {fileID: 4307391505004858402, guid: 81ae8547bca084ad9807f315815e1936, type: 3}
+    - Key: 6
+      Value: {fileID: 5582051567509523448, guid: 30f63f29c569e484988d38bf14412eaa, type: 3}
+    - Key: 10
+      Value: {fileID: 4109844745576561448, guid: 437b2fe14f9fe4c6088d6c308d2917af, type: 3}
