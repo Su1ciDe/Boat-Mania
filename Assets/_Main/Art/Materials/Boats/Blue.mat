@@ -45,7 +45,7 @@ Material:
     - _UseNormalMap: 0
     - _UseRim: 0
     m_Colors:
-    - _BaseColor: {r: 0.06666663, g: 0.49843085, b: 0.93333334, a: 1}
+    - _BaseColor: {r: 0.10849059, g: 0.33435473, b: 1, a: 1}
     - _Color: {r: 0.8007592, g: 0.04897937, b: 0.03820274, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
     - _HColor: {r: 0.12459949, g: 0.44078767, b: 0.754717, a: 1}
