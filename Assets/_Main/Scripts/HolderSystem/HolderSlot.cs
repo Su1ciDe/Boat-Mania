@@ -5,7 +5,7 @@ namespace HolderSystem
 {
 	public class HolderSlot : MonoBehaviour
 	{
-		public Boat Boat { get; private set; }
+		public Boat Boat { get; set; }
 
 		[SerializeField] private float size;
 		public float Size => size;

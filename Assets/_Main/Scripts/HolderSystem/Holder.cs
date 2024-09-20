@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Fiber.Managers;
 using Fiber.Utilities;
 using GamePlay.Boats;
+using TriInspector;
 using UnityEngine;
 using Utilities;
 
@@ -9,9 +10,14 @@ namespace HolderSystem
 {
 	public class Holder : Singleton<Holder>
 	{
+		[Title("Parameters")]
 		[SerializeField] private float slotCount;
 		[Space]
 		[SerializeField] private float rotation;
+
+		[Title("References")]
+		[SerializeField] private Transform exitPoint;
+		public Transform ExitPoint => exitPoint;
 
 		private readonly List<HolderSlot> holderSlots = new List<HolderSlot>();
 
@@ -40,9 +46,7 @@ namespace HolderSystem
 			for (var i = 0; i < holderSlots.Count; i++)
 			{
 				if (!holderSlots[i].Boat)
-				{
 					return holderSlots[i];
-				}
 			}
 
 			return null;
@@ -52,13 +56,22 @@ namespace HolderSystem
 		{
 			for (var i = 0; i < holderSlots.Count; i++)
 			{
-				if (holderSlots[i].Boat && holderSlots[i].Boat.ColorType == colorType)
-				{
+				if (holderSlots[i].Boat && holderSlots[i].Boat.ColorType == colorType && !holderSlots[i].Boat.IsCompleted)
 					return holderSlots[i].Boat;
-				}
 			}
 
 			return null;
+		}
+
+		public bool IsAnyBoatLoadingCars()
+		{
+			for (var i = 0; i < holderSlots.Count; i++)
+			{
+				if (holderSlots[i].Boat && holderSlots[i].Boat.IsLoadingCars)
+					return true;
+			}
+
+			return false;
 		}
 
 		#endregion

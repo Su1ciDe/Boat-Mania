@@ -1,5 +1,6 @@
 using DG.Tweening;
 using Fiber.Managers;
+using GamePlay.Boats;
 using UnityEngine;
 using Utilities;
 
@@ -10,6 +11,7 @@ namespace GamePlay.Cars
 	{
 		public bool IsMoving { get; set; }
 		public ColorType ColorType { get; set; }
+		public BoatSlot CurrentSlot { get; set; }
 
 		[SerializeField] private Renderer[] renderers;
 
@@ -37,7 +39,10 @@ namespace GamePlay.Cars
 			return transform.DOPath(path, speed).SetSpeedBased(true).OnWaypointChange(value =>
 			{
 				// DOTween.Kill(gameObject.name + "_rotate");
-				transform.DOLookAt(path[value], .1f);
+				if (path.Length > value)
+				{
+					transform.DOLookAt(path[value], .1f);
+				}
 			}).OnComplete(() => IsMoving = false);
 		}
 	}

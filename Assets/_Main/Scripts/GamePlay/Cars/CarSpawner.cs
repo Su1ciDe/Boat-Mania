@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Linq;
 using System.Collections.Generic;
 using DG.Tweening;
@@ -24,6 +25,8 @@ namespace GamePlay.Cars
 		[Title("Editor")]
 		[SerializeField] private List<ColorType> carColors = new List<ColorType>();
 #if UNITY_EDITOR
+		[TableList(Draggable = false, AlwaysExpanded = true, HideAddButton = true, HideRemoveButton = true, ShowElementLabels = false)]
+		[SerializeField] private List<CarCount> carCounts = new List<CarCount>();
 		[SerializeField] private Randomizer[] randomizer;
 		[SerializeField] private int randomCarCount;
 #endif
@@ -66,13 +69,19 @@ namespace GamePlay.Cars
 
 		private void OnBoatArrived(Boat boat)
 		{
+			if (IsAdvancing) return;
+
 			FillBoat(boat);
 		}
 
 		public void AdvanceLine(int advanceAmount)
 		{
 			var queuePositions = queuePoints.Select(x => x.position).Reverse().ToArray();
-			IsAdvancing = true;
+			if (carQueue.Count > 0)
+			{
+				IsAdvancing = true;
+			}
+
 			Tween tween = null;
 
 			int i = 0;
@@ -80,9 +89,7 @@ namespace GamePlay.Cars
 			{
 				var path = new List<Vector3>();
 				for (int j = i; j < i + advanceAmount; j++)
-				{
 					path.Add(queuePoints[j].position);
-				}
 
 				path.Reverse();
 				tween = car.MovePath(path.ToArray());
@@ -110,19 +117,22 @@ namespace GamePlay.Cars
 						CheckHolders(car.ColorType);
 				};
 			}
+
+			CheckWin();
 		}
 
 		private void CheckHolders(ColorType carColor)
 		{
 			var boat = Holder.Instance.GetBoatByType(carColor);
-			if (boat && !boat.IsMoving && !boat.IsCompleted)
-			{
-				FillBoat(boat);
-			}
+			if (!boat || boat.IsMoving) return;
+
+			FillBoat(boat);
 		}
 
 		private void FillBoat(Boat boat)
 		{
+			if (boat.IsCompleted) return;
+
 			var emptySlotCount = boat.GetEmptySlotCount();
 			var carCount = GetCarCountByType(boat.ColorType, emptySlotCount);
 			var path = new List<Vector3> { exitPoint.position, new Vector3(boat.transform.position.x, exitPoint.position.y, exitPoint.position.z), boat.transform.position };
@@ -135,14 +145,48 @@ namespace GamePlay.Cars
 				if (!car.transform.position.Equals(queuePoints[0].position))
 					path.Insert(0, queuePoints[0].position);
 
+				boat.SetCar(car, false);
 				tween = car.MovePath(path.ToArray());
-				tween.onComplete += () => boat.SetCar(car);
+				tween.onComplete += () => boat.SetToSlotPosition(car);
 			}
 
 			if (tween is not null)
 				tween.onComplete += () => boat.IsLoadingCars = false;
 
 			AdvanceLine(carCount);
+		}
+
+		private Coroutine checkWinCoroutine;
+
+		private void CheckWin()
+		{
+			if (checkWinCoroutine is not null)
+			{
+				StopCoroutine(checkWinCoroutine);
+				checkWinCoroutine = null;
+			}
+
+			checkWinCoroutine = StartCoroutine(CheckWinCoroutine());
+		}
+
+		private IEnumerator CheckWinCoroutine()
+		{
+			yield return null;
+			yield return new WaitUntil(() => !IsAdvancing);
+			yield return new WaitForSeconds(1);
+
+			if (carQueue.Count.Equals(0) && carColors.Count.Equals(0))
+			{
+				LevelManager.Instance.Win();
+			}
+
+			yield return new WaitUntil(() => !Holder.Instance.IsAnyBoatLoadingCars());
+			yield return null;
+
+			if (!Holder.Instance.GetFirstEmptySlot())
+			{
+				LevelManager.Instance.Lose();
+			}
 		}
 
 		#region Helpers
@@ -200,6 +244,19 @@ namespace GamePlay.Cars
 			[Group("Randomizer"), HideLabel, DisplayAsString] public string Percent;
 		}
 
+		[System.Serializable]
+		private class CarCount
+		{
+			[ReadOnly] public ColorType ColorType;
+			[ReadOnly] public int Count;
+
+			public CarCount(ColorType color, int count)
+			{
+				ColorType = color;
+				Count = count;
+			}
+		}
+
 		[Button]
 		private void Randomize()
 		{
@@ -225,6 +282,29 @@ namespace GamePlay.Cars
 			foreach (var gridSpawnerOption in randomizer)
 			{
 				gridSpawnerOption.Percent = ((float)gridSpawnerOption.Weight / totalWeight * 100).ToString("F2") + "%";
+			}
+
+			CalculateCars();
+		}
+
+		private void CalculateCars()
+		{
+			carCounts.Clear();
+			foreach (var goalOption in carColors)
+			{
+				var found = false;
+
+				var goalCount = carCounts.Where(x => x.ColorType == goalOption);
+				foreach (var count in goalCount)
+				{
+					count.Count++;
+					found = true;
+				}
+
+				if (!found)
+				{
+					carCounts.Add(new CarCount(goalOption, 1));
+				}
 			}
 		}
 #endif

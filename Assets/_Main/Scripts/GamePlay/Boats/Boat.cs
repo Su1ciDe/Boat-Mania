@@ -9,6 +9,7 @@ using Lofelt.NiceVibrations;
 using Managers;
 using PathCreation;
 using TriInspector;
+using UnityEditor.ShaderGraph.Serialization;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -22,7 +23,7 @@ namespace GamePlay.Boats
 		public static Boat SelectedBoat;
 
 		public bool IsMoving { get; set; }
-		public bool IsInHolder { get; set; }
+		public HolderSlot CurrentHolder { get; set; }
 		public bool IsLoadingCars { get; set; }
 		public bool IsCompleted { get; set; }
 
@@ -67,6 +68,7 @@ namespace GamePlay.Boats
 			}
 
 			slot.SetBoat(this);
+			CurrentHolder = slot;
 
 			col.enabled = false;
 			IsMoving = true;
@@ -178,18 +180,48 @@ namespace GamePlay.Boats
 			}
 		}
 
-		public void SetCar(Car car)
+		public void SetCar(Car car, bool setPosition = true)
 		{
 			var slot = GetFirstEmptySlot();
 			if (!slot) return;
 
-			slot.SetCar(car);
+			slot.SetCar(car, setPosition);
+			car.CurrentSlot = slot;
 
 			if (GetEmptySlotCount().Equals(0))
 			{
 				IsCompleted = true;
-				//TODO: complete boat and leave
+
+				StartCoroutine(ExitFromHolder());
 			}
+		}
+
+		private IEnumerator ExitFromHolder()
+		{
+			yield return new WaitUntil(() => !IsLoadingCars);
+			yield return null;
+			yield return new WaitUntil(() => !IsAnyCarMoving());
+			yield return null;
+
+			CurrentHolder.Boat = null;
+			CurrentHolder = null;
+
+			var exitPosition = Holder.Instance.ExitPoint.transform.position;
+			var pos = transform.position + (transform.position.z - exitPosition.z) * -transform.forward;
+			transform.DOMove(pos, speed).SetSpeedBased(true).OnComplete(() =>
+			{
+				transform.DOLookAt(new Vector3(-exitPosition.x, exitPosition.y, exitPosition.z), 0.1f, AxisConstraint.None, Vector3.up);
+				transform.DOMove(exitPosition, speed).SetSpeedBased(true).OnComplete(() =>
+				{
+					transform.DOKill();
+					Destroy(gameObject);
+				});
+			});
+		}
+
+		public void SetToSlotPosition(Car car)
+		{
+			car.CurrentSlot.SetPosition(car);
 		}
 
 		public void Highlight()
@@ -237,7 +269,7 @@ namespace GamePlay.Boats
 		{
 			if (!Player.Player.Instance.CanInput) return;
 			if (IsMoving) return;
-			if (IsInHolder) return;
+			if (CurrentHolder) return;
 
 			SelectedBoat = this;
 
@@ -249,7 +281,7 @@ namespace GamePlay.Boats
 			if (!Player.Player.Instance.CanInput) return;
 			if (!SelectedBoat) return;
 			if (IsMoving) return;
-			if (IsInHolder) return;
+			if (CurrentHolder) return;
 
 			if (eventData.pointerEnter && !eventData.pointerEnter.Equals(SelectedBoat.gameObject))
 			{
@@ -257,7 +289,7 @@ namespace GamePlay.Boats
 			}
 			else if (eventData.pointerEnter)
 			{
-				if (IsInHolder)
+				if (CurrentHolder)
 				{
 					SelectedBoat = null;
 					return;
@@ -280,6 +312,17 @@ namespace GamePlay.Boats
 		}
 
 		#endregion
+
+		public bool IsAnyCarMoving()
+		{
+			for (int i = 0; i < boatSlots.Length; i++)
+			{
+				if (boatSlots[i].Car && boatSlots[i].Car.IsMoving)
+					return true;
+			}
+
+			return false;
+		}
 
 #if UNITY_EDITOR
 		private void OnValidate()
