@@ -31,8 +31,12 @@ Material:
     serializedVersion: 3
     m_TexEnvs: []
     m_Ints: []
-    m_Floats: []
+    m_Floats:
+    - _SpecularToonSize: 0.42
+    - _SpecularToonSmoothness: 0.439
     m_Colors:
-    - _BaseColor: {r: 0.9622642, g: 0.78649443, b: 0.104396604, a: 1}
-    - _SColor: {r: 0.4245283, g: 0.35955858, b: 0, a: 1}
+    - _BaseColor: {r: 0.8301887, g: 0.62951946, b: 0.08223567, a: 1}
+    - _HColor: {r: 1, g: 0.99801105, b: 0.6462264, a: 1}
+    - _SColor: {r: 0.3962264, g: 0.3375262, b: 0, a: 1}
+    - _SpecularColor: {r: 0.4716981, g: 0.4716981, b: 0.4716981, a: 1}
   m_BuildTextureStacks: []

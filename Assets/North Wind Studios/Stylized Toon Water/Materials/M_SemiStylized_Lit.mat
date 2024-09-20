@@ -155,7 +155,7 @@ Material:
     - _TransparentZWrite: 0
     - _UseShadowThreshold: 0
     - _Use_Depth_Distortion: 1
-    - _Use_Waves: 1
+    - _Use_Waves: 0
     - _Water_Y_Position: -1
     - _Wave_Intensity: 0.5
     - _Wave_Speed: 0.1

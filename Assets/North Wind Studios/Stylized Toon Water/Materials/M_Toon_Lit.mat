@@ -166,7 +166,7 @@ Material:
     - _Use_Caustics_Distortion: 1
     - _Use_Depth_Distortion: 1
     - _Use_Gradient: 1
-    - _Use_Waves: 1
+    - _Use_Waves: 0
     - _Wave_Intensity: 0.5
     - _Wave_Speed: 0.1
     - _ZTestDepthEqualForOpaque: 3

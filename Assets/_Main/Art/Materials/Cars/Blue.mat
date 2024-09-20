@@ -32,10 +32,14 @@ Material:
     m_TexEnvs: []
     m_Ints: []
     m_Floats:
+    - _RampSmoothing: 0.304
+    - _RampThreshold: 0.792
+    - _SpecularToonSize: 0.634
+    - _SpecularToonSmoothness: 0.481
     - _SpecularType: 1
     - _UseRim: 0
     m_Colors:
-    - _BaseColor: {r: 0.118948035, g: 0.5486836, b: 0.9339623, a: 1}
+    - _BaseColor: {r: 0.0779192, g: 0.45692858, b: 0.9716981, a: 1}
     - _HColor: {r: 0.7924528, g: 0.7924528, b: 0.7924528, a: 1}
     - _SColor: {r: 0.06127626, g: 0.28331545, b: 0.4811321, a: 1}
     - _SpecularColor: {r: 0.4811321, g: 0.4811321, b: 0.4811321, a: 1}
