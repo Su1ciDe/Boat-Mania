@@ -228,7 +228,7 @@ namespace GamePlay.Boats
 				transform.DOMove(exitPosition, speed).SetSpeedBased(true).OnComplete(() =>
 				{
 					transform.DOKill();
-					Destroy(gameObject);
+					BoatManager.Instance.RemoveBoat(this);
 				});
 			});
 		}

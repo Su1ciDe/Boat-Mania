@@ -21,6 +21,24 @@ namespace Managers
 			boats = boatHolder.GetComponentsInChildren<Boat>().ToList();
 		}
 
+		public void RemoveBoat(Boat boat)
+		{
+			boats.Remove(boat);
+			Destroy(boat.gameObject);
+		}
+
+		public int GetBoatCountInGrid()
+		{
+			int count = 0;
+			for (var i = 0; i < boats.Count; i++)
+			{
+				if (!boats[i].CurrentHolder)
+					count++;
+			}
+
+			return count;
+		}
+
 		#region Editor
 
 #if UNITY_EDITOR

@@ -52,6 +52,19 @@ namespace HolderSystem
 			return null;
 		}
 
+		public bool IsAllHoldersEmpty()
+		{
+			for (var i = 0; i < holderSlots.Count; i++)
+			{
+				if (holderSlots[i].Boat)
+				{
+					return false;
+				}
+			}
+
+			return true;
+		}
+
 		public Boat GetBoatByType(ColorType colorType)
 		{
 			for (var i = 0; i < holderSlots.Count; i++)

@@ -7,6 +7,7 @@ using Fiber.Utilities;
 using Fiber.Utilities.Extensions;
 using GamePlay.Boats;
 using HolderSystem;
+using Managers;
 using TriInspector;
 using UnityEngine;
 using Utilities;
@@ -174,7 +175,7 @@ namespace GamePlay.Cars
 			yield return new WaitUntil(() => !IsAdvancing);
 			yield return new WaitForSeconds(1);
 
-			if (carQueue.Count.Equals(0) && carColors.Count.Equals(0))
+			if (carQueue.Count.Equals(0) && carColors.Count.Equals(0) && Holder.Instance.IsAllHoldersEmpty())
 			{
 				LevelManager.Instance.Win();
 			}
@@ -183,6 +184,10 @@ namespace GamePlay.Cars
 			yield return null;
 
 			if (!Holder.Instance.GetFirstEmptySlot())
+			{
+				LevelManager.Instance.Lose();
+			}
+			else if (BoatManager.Instance.GetBoatCountInGrid() <= 0)
 			{
 				LevelManager.Instance.Lose();
 			}
