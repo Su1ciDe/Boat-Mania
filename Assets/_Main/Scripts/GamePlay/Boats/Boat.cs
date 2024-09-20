@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using Fiber.Managers;
+using Fiber.Utilities;
 using Fiber.Utilities.Extensions;
 using GamePlay.Cars;
 using HolderSystem;
@@ -37,6 +38,8 @@ namespace GamePlay.Boats
 		[SerializeField] private Transform model;
 		[SerializeField] private Collider col;
 		[SerializeField] private Renderer[] renderers;
+		[SerializeField] private GameObject cover;
+		[SerializeField] private Transform[] propellers;
 		[Space]
 		[SerializeField] private LayerMask boatLayerMask;
 
@@ -72,6 +75,8 @@ namespace GamePlay.Boats
 
 			col.enabled = false;
 			IsMoving = true;
+			MovePropeller();
+
 			transform.DOMove(transform.position + 100 * transform.forward, speed).SetEase(Ease.Linear).SetSpeedBased(true).OnUpdate(() =>
 			{
 				var path = PathManager.Instance.FindPath(transform.position);
@@ -106,6 +111,8 @@ namespace GamePlay.Boats
 				transform.DOMove(holderSlot.transform.position, speed).SetSpeedBased(true).OnComplete(() =>
 				{
 					IsMoving = false;
+					StopPropeller();
+					cover.gameObject.SetActive(false);
 
 					OnBoatArrived?.Invoke();
 					OnBoatArrivedAny?.Invoke(this);
@@ -135,18 +142,25 @@ namespace GamePlay.Boats
 			else
 			{
 				IsMoving = true;
+				MovePropeller();
+
 				var prevPos = transform.position;
 				transform.DOMove(transform.position + (hitDistance - size.y / 2f) * transform.forward, speed).SetEase(Ease.Linear).SetSpeedBased(true).OnComplete(() =>
 				{
 					//TODO: crash particle
 					var crashPos = transform.position + hitDistance * transform.forward;
+					// ParticlePooler.Instance.Spawn("Crash", crashPos, Quaternion.Euler(-transform.forward));
 
 					for (var i = 0; i < hitBoats.Count; i++)
 					{
 						hitBoats[i].Crash(this);
 					}
 
-					transform.DOMove(prevPos, speed).SetEase(Ease.Linear).SetSpeedBased(true).OnComplete(() => IsMoving = false);
+					transform.DOMove(prevPos, speed).SetEase(Ease.Linear).SetSpeedBased(true).OnComplete(() =>
+					{
+						IsMoving = false;
+						StopPropeller();
+					});
 				});
 
 				return true;
@@ -159,7 +173,7 @@ namespace GamePlay.Boats
 
 			//TODO: maybe change to be more linear
 			var dir = (boat.transform.position - transform.position).normalized;
-			transform.DOPunchRotation(crashAngle * dir, crashDuration, 4).SetTarget(transform);
+			transform.DOPunchRotation(crashAngle * dir, crashDuration, 7).SetTarget(transform);
 		}
 
 		private void ChangeColor(ColorType colorType)
@@ -222,6 +236,18 @@ namespace GamePlay.Boats
 		public void SetToSlotPosition(Car car)
 		{
 			car.CurrentSlot.SetPosition(car);
+		}
+
+		private void MovePropeller()
+		{
+			for (var i = 0; i < propellers.Length; i++)
+				propellers[i].DOLocalRotate(360 * Vector3.forward, .5f, RotateMode.FastBeyond360).SetLoops(-1, LoopType.Restart);
+		}
+
+		private void StopPropeller()
+		{
+			for (var i = 0; i < propellers.Length; i++)
+				propellers[i].DOKill();
 		}
 
 		public void Highlight()

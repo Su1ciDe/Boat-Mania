@@ -38,7 +38,6 @@ namespace GamePlay.Cars
 			IsMoving = true;
 			return transform.DOPath(path, speed).SetSpeedBased(true).OnWaypointChange(value =>
 			{
-				// DOTween.Kill(gameObject.name + "_rotate");
 				if (path.Length > value)
 				{
 					transform.DOLookAt(path[value], .1f);
