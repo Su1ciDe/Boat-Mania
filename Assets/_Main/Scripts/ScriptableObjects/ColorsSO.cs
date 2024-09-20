@@ -7,6 +7,7 @@ namespace ScriptableObjects
 	[CreateAssetMenu(fileName = "Colors", menuName = "Boat Mania/Colors", order = 0)]
 	public class ColorsSO : ScriptableObject
 	{
-		public SerializedDictionary<ColorType, Material> Colors = new SerializedDictionary<ColorType, Material>();
+		public SerializedDictionary<ColorType, Material> BoatColors = new SerializedDictionary<ColorType, Material>();
+		public SerializedDictionary<ColorType, Material> CarColors = new SerializedDictionary<ColorType, Material>();
 	}
 }

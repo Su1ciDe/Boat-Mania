@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 970ec249ba044998b112ade2595693f7, type: 3}
   m_Name: Colors
   m_EditorClassIdentifier: 
-  Colors:
+  BoatColors:
     _serializedList:
     - Key: 0
       Value: {fileID: 2100000, guid: c1b2d87244e594277b431b08e5f3e1d8, type: 2}
@@ -28,3 +28,19 @@ MonoBehaviour:
       Value: {fileID: 2100000, guid: f8627226eb9e14db892c46c9a23c3d2e, type: 2}
     - Key: 6
       Value: {fileID: 2100000, guid: b031072aaaf314971b674241538d825f, type: 2}
+  CarColors:
+    _serializedList:
+    - Key: 0
+      Value: {fileID: 2100000, guid: f2d412f8ff6d24cfb9c0c12f4c825119, type: 2}
+    - Key: 1
+      Value: {fileID: 2100000, guid: 50dbe0ce476964c4984133a5f6a3d803, type: 2}
+    - Key: 2
+      Value: {fileID: 2100000, guid: 2ac4dcdd079074796941ee0b0d2e34ce, type: 2}
+    - Key: 3
+      Value: {fileID: 2100000, guid: 9fb2e770e13d148c5b23fd55e49eb452, type: 2}
+    - Key: 4
+      Value: {fileID: 2100000, guid: d0f9349220a6c4d96ba99e160165155a, type: 2}
+    - Key: 5
+      Value: {fileID: 2100000, guid: 49a4bd0a0f4a14a738ab5187610ece67, type: 2}
+    - Key: 6
+      Value: {fileID: 2100000, guid: d799c2fde34344879a15d07dc61a71fb, type: 2}
