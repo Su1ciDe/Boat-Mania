@@ -67,7 +67,7 @@ namespace HolderSystem
 		{
 			for (var i = 0; i < holderSlots.Count; i++)
 			{
-				if (holderSlots[i].Boat && holderSlots[i].Boat.IsLoadingCars)
+				if (holderSlots[i].Boat && holderSlots[i].Boat.IsLoadingCars && holderSlots[i].Boat.IsAnyCarMoving())
 					return true;
 			}
 

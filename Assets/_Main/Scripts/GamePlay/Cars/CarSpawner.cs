@@ -72,15 +72,15 @@ namespace GamePlay.Cars
 			if (IsAdvancing) return;
 
 			FillBoat(boat);
+
+			CheckWin();
 		}
 
 		public void AdvanceLine(int advanceAmount)
 		{
 			var queuePositions = queuePoints.Select(x => x.position).Reverse().ToArray();
 			if (carQueue.Count > 0)
-			{
 				IsAdvancing = true;
-			}
 
 			Tween tween = null;
 
@@ -103,7 +103,7 @@ namespace GamePlay.Cars
 				var car = SpawnCar(carColors[0]);
 				carColors.RemoveAt(0);
 
-				car.MovePath(queuePositions[..(spawnAmount - j)]).SetDelay(j * .1f);
+				car.MovePath(queuePositions[..(advanceAmount - j)]).SetDelay(j * .1f);
 				carQueue.Enqueue(car);
 			}
 
@@ -117,8 +117,6 @@ namespace GamePlay.Cars
 						CheckHolders(car.ColorType);
 				};
 			}
-
-			CheckWin();
 		}
 
 		private void CheckHolders(ColorType carColor)
@@ -136,7 +134,8 @@ namespace GamePlay.Cars
 			var emptySlotCount = boat.GetEmptySlotCount();
 			var carCount = GetCarCountByType(boat.ColorType, emptySlotCount);
 			var path = new List<Vector3> { exitPoint.position, new Vector3(boat.transform.position.x, exitPoint.position.y, exitPoint.position.z), boat.transform.position };
-			boat.IsLoadingCars = true;
+			if (carCount > 0)
+				boat.IsLoadingCars = true;
 			Tween tween = null;
 			for (var i = 0; i < carCount; i++)
 			{
