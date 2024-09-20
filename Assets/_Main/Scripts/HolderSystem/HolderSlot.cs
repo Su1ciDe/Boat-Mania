@@ -19,8 +19,6 @@ namespace HolderSystem
 		private void OnBoatArrived()
 		{
 			Boat.OnBoatArrived -= OnBoatArrived;
-
-			Debug.Log("arrived");
 		}
 	}
 }

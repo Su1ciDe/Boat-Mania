@@ -107,9 +107,7 @@ namespace GamePlay.Cars
 					IsAdvancing = false;
 
 					if (carQueue.TryPeek(out var car))
-					{
 						CheckHolders(car.ColorType);
-					}
 				};
 			}
 		}
@@ -117,7 +115,6 @@ namespace GamePlay.Cars
 		private void CheckHolders(ColorType carColor)
 		{
 			var boat = Holder.Instance.GetBoatByType(carColor);
-			Debug.Log(boat, boat.gameObject);
 			if (boat && !boat.IsMoving && !boat.IsCompleted)
 			{
 				FillBoat(boat);
