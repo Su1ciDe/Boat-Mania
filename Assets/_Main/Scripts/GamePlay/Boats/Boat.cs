@@ -152,8 +152,8 @@ namespace GamePlay.Boats
 				transform.DOMove(transform.position + (hitDistance - size.y / 2f) * transform.forward, speed).SetEase(Ease.Linear).SetSpeedBased(true).OnComplete(() =>
 				{
 					//TODO: crash particle
-					var crashPos = transform.position + hitDistance * transform.forward;
-					// ParticlePooler.Instance.Spawn("Crash", crashPos, Quaternion.Euler(-transform.forward));
+					var crashPos = transform.position + (hitDistance - size.y / 2f) * transform.forward;
+					ParticlePooler.Instance.Spawn("Crash", crashPos, transform.rotation);
 
 					for (var i = 0; i < hitBoats.Count; i++)
 					{

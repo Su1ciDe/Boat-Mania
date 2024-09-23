@@ -44,4 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5889f9e56323472cbf53d6787f717805, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pools: []
+  pools:
+  - Tag: Crash
+    Prefab: {fileID: 139844, guid: 33392728d214a3b41b0c8e9e34a73526, type: 3}
+    Size: 5
+    AutoDeactivate: 1

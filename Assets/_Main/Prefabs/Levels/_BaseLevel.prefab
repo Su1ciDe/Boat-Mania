@@ -60,6 +60,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PathManager
       objectReference: {fileID: 0}
+    - target: {fileID: 2332500814163080744, guid: cae9fab7baf8b400ea4c5a5f69da7e3c, type: 3}
+      propertyPath: editorData.vertexPathUpToDate
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4112586327476849238, guid: cae9fab7baf8b400ea4c5a5f69da7e3c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -245,6 +249,10 @@ PrefabInstance:
     - target: {fileID: 7869436427361756732, guid: 4bf9a173886e049b09fb362dd4be7e16, type: 3}
       propertyPath: m_Name
       value: CarSpawner
+      objectReference: {fileID: 0}
+    - target: {fileID: 9042759089720473966, guid: 4bf9a173886e049b09fb362dd4be7e16, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 33.27
       objectReference: {fileID: 0}
     - target: {fileID: 9042759089720473966, guid: 4bf9a173886e049b09fb362dd4be7e16, type: 3}
       propertyPath: m_LocalRotation.w

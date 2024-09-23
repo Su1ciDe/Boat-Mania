@@ -18,6 +18,16 @@ namespace GamePlay.Cars
 		[SerializeField] private float speed = 10;
 		[SerializeField] private float rotationSpeed = 10;
 
+		[Space]
+		[SerializeField] private Animator animator;
+
+		private static readonly int idleSpeed = Animator.StringToHash("IdleSpeed");
+
+		private void Awake()
+		{
+			animator.SetFloat(idleSpeed, Random.Range(0.75f, 1.25f));
+		}
+
 		public void Setup(ColorType colorType)
 		{
 			ColorType = colorType;
