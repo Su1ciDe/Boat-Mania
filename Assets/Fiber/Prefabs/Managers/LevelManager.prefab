@@ -50,4 +50,5 @@ MonoBehaviour:
   - {fileID: 934582430572828081, guid: 7970f62b1bc0dbe498fcf72db5460c32, type: 3}
   - {fileID: 934582430572828081, guid: 2c602f107b8ba274d845a15d320e525c, type: 3}
   - {fileID: 934582430572828081, guid: d7867bbf5ba1d6049acd41bcc5f7fb88, type: 3}
+  - {fileID: 934582430572828081, guid: 2cb2dfaedb69054429a2a33d5599e479, type: 3}
   TutorialLevels: []
