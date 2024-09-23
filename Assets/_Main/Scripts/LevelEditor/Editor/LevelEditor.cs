@@ -1,3 +1,4 @@
+using System;
 using GamePlay.Boats;
 using Managers;
 using UnityEditor;
@@ -9,7 +10,7 @@ namespace LevelEditor
 	[InitializeOnLoad]
 	public class LevelEditor : Editor
 	{
-		private const float BUTTON_HEIGHT = 35F;
+		private const float BUTTON_HEIGHT = 25f;
 		private const float BUTTON_WIDTH = 135F;
 
 		private static ColorType selectedColor;
@@ -39,14 +40,16 @@ namespace LevelEditor
 			if (!BoatManager.Instance) return;
 			GUILayout.BeginArea(new Rect(5, 5, 135, 200));
 			{
-				// EditorGUI.ColorField(new Rect(0, 0, 100, 100), Color.black);
-				// EditorGUILayout.ColorField(Color.black, GUILayout.Width(100), GUILayout.Height(BUTTON_HEIGHT));
+				GUI.color = GetColor(selectedColor);
 				selectedColor = (ColorType)EditorGUILayout.EnumPopup(selectedColor, "Dropdown");
 				GUILayout.Space(5);
+				GUI.color = Color.white;
 				selectedBoat = (BoatType)EditorGUILayout.EnumPopup(selectedBoat, "Dropdown");
 				GUILayout.Space(5);
 				if (GUILayout.Button("Spawn", GUILayout.Width(BUTTON_WIDTH), GUILayout.Height(BUTTON_HEIGHT)))
 				{
+					if (selectedBoat == BoatType.None) return;
+
 					var boat = BoatManager.Instance.SpawnBoat(selectedColor, selectedBoat);
 					Selection.activeGameObject = boat.gameObject;
 				}
@@ -73,6 +76,19 @@ namespace LevelEditor
 				_ => selectedColor
 			};
 
+			selectedBoat = Event.current.keyCode switch
+			{
+				KeyCode.A => BoatType._4,
+				KeyCode.S => BoatType._6,
+				KeyCode.D => BoatType._10,
+				_ => selectedBoat
+			};
+
+			if (Event.current.keyCode == KeyCode.Space)
+			{
+				Spawn();
+			}
+
 			SceneView.RepaintAll();
 		}
 
@@ -80,7 +96,7 @@ namespace LevelEditor
 		{
 			if (!Selection.activeGameObject || !Selection.activeGameObject.TryGetComponent(out Boat boat)) return;
 			var boatPos = scene.camera.WorldToScreenPoint(boat.transform.position);
-			GUILayout.BeginArea(new Rect(boatPos.x, scene.camera.pixelHeight - boatPos.y + 25, 100, 100));
+			GUILayout.BeginArea(new Rect(boatPos.x, scene.camera.pixelHeight - boatPos.y + 25, 125, 125));
 			{
 				GUILayout.BeginHorizontal();
 				if (GUILayout.Button("↖️", GUILayout.Width(BUTTON_HEIGHT), GUILayout.Height(BUTTON_HEIGHT)))
@@ -88,10 +104,31 @@ namespace LevelEditor
 					boat.transform.eulerAngles = new Vector3(0, -45);
 				}
 
+				if (GUILayout.Button("↑", GUILayout.Width(BUTTON_HEIGHT), GUILayout.Height(BUTTON_HEIGHT)))
+				{
+					boat.transform.eulerAngles = new Vector3(0, 0);
+				}
+
 				if (GUILayout.Button("↗️", GUILayout.Width(BUTTON_HEIGHT), GUILayout.Height(BUTTON_HEIGHT)))
 				{
 					boat.transform.eulerAngles = new Vector3(0, 45);
 				}
+
+				GUILayout.EndHorizontal();
+
+				GUILayout.BeginHorizontal();
+				if (GUILayout.Button("←", GUILayout.Width(BUTTON_HEIGHT), GUILayout.Height(BUTTON_HEIGHT)))
+				{
+					boat.transform.eulerAngles = new Vector3(0, -90);
+				}
+
+				GUILayout.Space(BUTTON_HEIGHT + 3 );
+
+				if (GUILayout.Button("→", GUILayout.Width(BUTTON_HEIGHT), GUILayout.Height(BUTTON_HEIGHT)))
+				{
+					boat.transform.eulerAngles = new Vector3(0, 90);
+				}
+
 				GUILayout.EndHorizontal();
 
 				GUILayout.BeginHorizontal();
@@ -100,13 +137,36 @@ namespace LevelEditor
 					boat.transform.eulerAngles = new Vector3(0, -135);
 				}
 
+				if (GUILayout.Button("↓", GUILayout.Width(BUTTON_HEIGHT), GUILayout.Height(BUTTON_HEIGHT)))
+				{
+					boat.transform.eulerAngles = new Vector3(0, 180);
+				}
+
 				if (GUILayout.Button("↘️", GUILayout.Width(BUTTON_HEIGHT), GUILayout.Height(BUTTON_HEIGHT)))
 				{
 					boat.transform.eulerAngles = new Vector3(0, 135);
 				}
+
 				GUILayout.EndHorizontal();
 			}
 			GUILayout.EndArea();
+		}
+
+		private static Color GetColor(ColorType colorType)
+		{
+			var color = selectedColor switch
+			{
+				ColorType._1Blue => Color.blue,
+				ColorType._2Green => Color.green,
+				ColorType._3Orange => new Color(1f, 0.5f, 0),
+				ColorType._4Pink => Color.magenta,
+				ColorType._5Purple => new Color(.7f, .25f, 1f),
+				ColorType._6Red => Color.red,
+				ColorType._7Yellow => Color.yellow,
+				_ => throw new ArgumentOutOfRangeException()
+			};
+
+			return color;
 		}
 	}
 }

@@ -29,7 +29,9 @@ namespace GamePlay.Cars
 			var mat = GameManager.Instance.ColorsSO.CarColors[colorType];
 			for (var i = 0; i < renderers.Length; i++)
 			{
-				renderers[i].material = mat;
+				var mats = renderers[i].materials;
+				mats[0] = mat;
+				renderers[i].materials = mats;
 			}
 		}
 

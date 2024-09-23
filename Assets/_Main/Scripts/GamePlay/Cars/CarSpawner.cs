@@ -268,20 +268,18 @@ namespace GamePlay.Cars
 			{
 				carColors.Add(randomCars.WeightedRandom(weight));
 			}
+
+			CalculateCars();
 		}
 
 		private void OnValidate()
 		{
 			var totalWeight = 0;
 			foreach (var randomOption in randomizer)
-			{
 				totalWeight += randomOption.Weight;
-			}
 
 			foreach (var gridSpawnerOption in randomizer)
-			{
 				gridSpawnerOption.Percent = ((float)gridSpawnerOption.Weight / totalWeight * 100).ToString("F2") + "%";
-			}
 
 			CalculateCars();
 		}
@@ -301,9 +299,7 @@ namespace GamePlay.Cars
 				}
 
 				if (!found)
-				{
 					carCounts.Add(new CarCount(goalOption, 1));
-				}
 			}
 		}
 #endif

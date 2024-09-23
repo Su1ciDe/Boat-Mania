@@ -61,8 +61,8 @@ MonoBehaviour:
       - {x: -15, y: -6.2837356e-16, z: 40}
       - {x: -14, y: -3.544747e-16, z: 40}
       - {x: -12.483116, y: 6.099815e-17, z: 40}
-      - {x: -10.757865, y: -1.4620695e-16, z: 40.041866}
-      - {x: -10, y: -3.5341206e-16, z: 40}
+      - {x: -13.257865, y: -1.4620695e-16, z: 40.041866}
+      - {x: -12.5, y: -3.5341206e-16, z: 40}
       isClosed: 0
       space: 0
       controlMode: 0
@@ -212,8 +212,8 @@ MonoBehaviour:
       - {x: 15, y: -6.336404e-16, z: 40}
       - {x: 14, y: -3.5525292e-16, z: 40}
       - {x: 12.00061, y: 2.0135223e-16, z: 40}
-      - {x: 10.999657, y: -7.723515e-17, z: 39.98759}
-      - {x: 10, y: -3.5582253e-16, z: 40}
+      - {x: 13.999657, y: -7.723515e-17, z: 39.98759}
+      - {x: 13, y: -3.5582253e-16, z: 40}
       isClosed: 0
       space: 0
       controlMode: 0
@@ -231,7 +231,7 @@ MonoBehaviour:
       - 90
       globalNormalsAngle: 0
       flipNormals: 0
-    vertexPathUpToDate: 1
+    vertexPathUpToDate: 0
     vertexPathMaxAngleError: 0.3
     vertexPathMinVertexSpacing: 0.01
     showTransformTool: 1

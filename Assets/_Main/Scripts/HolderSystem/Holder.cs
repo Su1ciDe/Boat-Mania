@@ -84,9 +84,9 @@ namespace HolderSystem
 			var offset = slotCount * holderSlotPrefab.Size / 2f - holderSlotPrefab.Size / 2f;
 			for (int i = 0; i < slotCount; i++)
 			{
-				Gizmos.color = Color.cyan;
+				Gizmos.color = Color.yellow;
 				Gizmos.DrawWireMesh(meshFilter.sharedMesh, new Vector3(i * holderSlotPrefab.Size - offset, 0, 0) + transform.position, Quaternion.Euler(new Vector3(90, rotation, 0)),
-					new Vector3(3, 7));
+					new Vector3(4.5f, 10));
 			}
 		}
 #endif

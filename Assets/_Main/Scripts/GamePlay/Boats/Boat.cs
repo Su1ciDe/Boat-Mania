@@ -39,6 +39,7 @@ namespace GamePlay.Boats
 		[SerializeField] private Collider col;
 		[SerializeField] private Renderer[] renderers;
 		[SerializeField] private GameObject cover;
+		[SerializeField] private GameObject arrow;
 		[SerializeField] private Transform[] propellers;
 		[Space]
 		[SerializeField] private LayerMask boatLayerMask;
@@ -108,16 +109,19 @@ namespace GamePlay.Boats
 			transform.DOMove(new Vector3(holderSlot.transform.position.x, transform.position.y, transform.position.z), speed).SetSpeedBased(true).OnComplete(() =>
 			{
 				transform.DORotate(holderSlot.transform.eulerAngles, .25f);
-				transform.DOMove(holderSlot.transform.position, speed).SetSpeedBased(true).OnComplete(() =>
-				{
-					IsMoving = false;
-					StopPropeller();
-					cover.gameObject.SetActive(false);
-
-					OnBoatArrived?.Invoke();
-					OnBoatArrivedAny?.Invoke(this);
-				});
+				transform.DOMove(holderSlot.transform.position, speed).SetSpeedBased(true).OnComplete(OnArrived);
 			});
+		}
+
+		private void OnArrived()
+		{
+			IsMoving = false;
+			StopPropeller();
+			cover.SetActive(false);
+			arrow.SetActive(false);
+
+			OnBoatArrived?.Invoke();
+			OnBoatArrivedAny?.Invoke(this);
 		}
 
 		private bool CheckIfBlockedByCar()
