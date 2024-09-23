@@ -10,7 +10,6 @@ using Lofelt.NiceVibrations;
 using Managers;
 using PathCreation;
 using TriInspector;
-using UnityEditor.ShaderGraph.Serialization;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -36,6 +35,8 @@ namespace GamePlay.Boats
 		[SerializeField] private BoatSlot[] boatSlots;
 		[SerializeField] private Transform[] rayPoints;
 		[SerializeField] private Transform model;
+		[SerializeField] private Transform enterPoint;
+		public Transform EnterPoint => enterPoint;
 		[SerializeField] private Collider col;
 		[SerializeField] private Renderer[] renderers;
 		[SerializeField] private GameObject cover;
@@ -207,10 +208,10 @@ namespace GamePlay.Boats
 			}
 		}
 
-		public void SetCar(Car car, bool setPosition = true)
+		public BoatSlot SetCar(Car car, bool setPosition = true)
 		{
 			var slot = GetFirstEmptySlot();
-			if (!slot) return;
+			if (!slot) return null;
 
 			slot.SetCar(car, setPosition);
 			car.CurrentSlot = slot;
@@ -221,6 +222,8 @@ namespace GamePlay.Boats
 
 				StartCoroutine(ExitFromHolder());
 			}
+
+			return slot;
 		}
 
 		private IEnumerator ExitFromHolder()
