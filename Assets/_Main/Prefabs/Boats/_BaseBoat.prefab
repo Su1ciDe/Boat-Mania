@@ -75,6 +75,7 @@ GameObject:
   - component: {fileID: 5265087807531732070}
   - component: {fileID: 6981661257312450598}
   - component: {fileID: 1368983387811584630}
+  - component: {fileID: 1754247203971914887}
   m_Layer: 7
   m_Name: _BaseBoat
   m_TagString: Untagged
@@ -180,6 +181,27 @@ MonoBehaviour:
   size: {x: 0, y: 0}
   crashAngle: 10
   crashDuration: 0.5
+--- !u!95 &1754247203971914887
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1229502886419206346}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 238dba17267b9428baa446875504290e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1380984170400804781
 GameObject:
   m_ObjectHideFlags: 0

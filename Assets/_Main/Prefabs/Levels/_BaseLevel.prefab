@@ -62,7 +62,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2332500814163080744, guid: cae9fab7baf8b400ea4c5a5f69da7e3c, type: 3}
       propertyPath: editorData.vertexPathUpToDate
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4112586327476849238, guid: cae9fab7baf8b400ea4c5a5f69da7e3c, type: 3}
       propertyPath: m_LocalPosition.x

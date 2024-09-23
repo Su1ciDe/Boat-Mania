@@ -55,9 +55,16 @@ namespace GamePlay.Boats
 		private const float HIGHLIGHT_DURATION = .25f;
 		private const float HIGHLIGHT_SCALE = 1.25f;
 
+		private static readonly int idleSpeed = Animator.StringToHash("IdleSpeed");
+
 		public event UnityAction OnBoatArrived;
 		public static event UnityAction<Boat> OnBoatTapped;
 		public static event UnityAction<Boat> OnBoatArrivedAny;
+
+		private void Awake()
+		{
+			GetComponent<Animator>().SetFloat(idleSpeed, Random.Range(0.75f, 1.25f));
+		}
 
 		private void Move()
 		{
@@ -115,6 +122,8 @@ namespace GamePlay.Boats
 
 		private void OnArrived()
 		{
+			transform.localScale = 1.5f * Vector3.one;
+
 			IsMoving = false;
 			StopPropeller();
 			cover.SetActive(false);
