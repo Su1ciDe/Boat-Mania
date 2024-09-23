@@ -128,7 +128,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7023722486093670165, guid: 8f2be9d31462041a2bdb434ab6e22c7e, type: 3}
       propertyPath: carColors.Array.size
-      value: 48
+      value: 42
       objectReference: {fileID: 0}
     - target: {fileID: 7023722486093670165, guid: 8f2be9d31462041a2bdb434ab6e22c7e, type: 3}
       propertyPath: carCounts.Array.size
@@ -192,35 +192,51 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7023722486093670165, guid: 8f2be9d31462041a2bdb434ab6e22c7e, type: 3}
       propertyPath: carColors.Array.data[22]
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7023722486093670165, guid: 8f2be9d31462041a2bdb434ab6e22c7e, type: 3}
       propertyPath: carColors.Array.data[23]
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7023722486093670165, guid: 8f2be9d31462041a2bdb434ab6e22c7e, type: 3}
       propertyPath: carColors.Array.data[24]
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7023722486093670165, guid: 8f2be9d31462041a2bdb434ab6e22c7e, type: 3}
       propertyPath: carColors.Array.data[25]
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7023722486093670165, guid: 8f2be9d31462041a2bdb434ab6e22c7e, type: 3}
       propertyPath: carColors.Array.data[26]
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7023722486093670165, guid: 8f2be9d31462041a2bdb434ab6e22c7e, type: 3}
       propertyPath: carColors.Array.data[27]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7023722486093670165, guid: 8f2be9d31462041a2bdb434ab6e22c7e, type: 3}
+      propertyPath: carColors.Array.data[28]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7023722486093670165, guid: 8f2be9d31462041a2bdb434ab6e22c7e, type: 3}
+      propertyPath: carColors.Array.data[29]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7023722486093670165, guid: 8f2be9d31462041a2bdb434ab6e22c7e, type: 3}
+      propertyPath: carColors.Array.data[30]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7023722486093670165, guid: 8f2be9d31462041a2bdb434ab6e22c7e, type: 3}
+      propertyPath: carColors.Array.data[31]
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7023722486093670165, guid: 8f2be9d31462041a2bdb434ab6e22c7e, type: 3}
       propertyPath: carColors.Array.data[32]
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7023722486093670165, guid: 8f2be9d31462041a2bdb434ab6e22c7e, type: 3}
       propertyPath: carColors.Array.data[33]
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7023722486093670165, guid: 8f2be9d31462041a2bdb434ab6e22c7e, type: 3}
       propertyPath: carColors.Array.data[34]
@@ -232,27 +248,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7023722486093670165, guid: 8f2be9d31462041a2bdb434ab6e22c7e, type: 3}
       propertyPath: carColors.Array.data[36]
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7023722486093670165, guid: 8f2be9d31462041a2bdb434ab6e22c7e, type: 3}
       propertyPath: carColors.Array.data[37]
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7023722486093670165, guid: 8f2be9d31462041a2bdb434ab6e22c7e, type: 3}
       propertyPath: carColors.Array.data[38]
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7023722486093670165, guid: 8f2be9d31462041a2bdb434ab6e22c7e, type: 3}
       propertyPath: carColors.Array.data[39]
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7023722486093670165, guid: 8f2be9d31462041a2bdb434ab6e22c7e, type: 3}
       propertyPath: carColors.Array.data[40]
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7023722486093670165, guid: 8f2be9d31462041a2bdb434ab6e22c7e, type: 3}
       propertyPath: carColors.Array.data[41]
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7023722486093670165, guid: 8f2be9d31462041a2bdb434ab6e22c7e, type: 3}
       propertyPath: carColors.Array.data[42]
@@ -272,7 +288,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7023722486093670165, guid: 8f2be9d31462041a2bdb434ab6e22c7e, type: 3}
       propertyPath: carCounts.Array.data[2].Count
-      value: 16
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7023722486093670165, guid: 8f2be9d31462041a2bdb434ab6e22c7e, type: 3}
       propertyPath: carCounts.Array.data[0].ColorType
