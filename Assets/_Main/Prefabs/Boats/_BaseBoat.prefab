@@ -99,6 +99,7 @@ Transform:
   - {fileID: 6236970188223230938}
   - {fileID: 441290537446682404}
   - {fileID: 4160553991806962640}
+  - {fileID: 2956003771618847589}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &5265087807531732070
@@ -168,6 +169,7 @@ MonoBehaviour:
   - {fileID: 3428423919704671930}
   - {fileID: 4806965353040731583}
   model: {fileID: 6236970188223230938}
+  enterPoint: {fileID: 2956003771618847589}
   col: {fileID: 6981661257312450598}
   renderers: []
   cover: {fileID: 0}
@@ -316,6 +318,37 @@ Transform:
   m_Children:
   - {fileID: 3428423919704671930}
   - {fileID: 4806965353040731583}
+  m_Father: {fileID: 5853299716593089504}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3790461243809161975
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2956003771618847589}
+  m_Layer: 7
+  m_Name: EnterPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2956003771618847589
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3790461243809161975}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
   m_Father: {fileID: 5853299716593089504}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5727553729247896578

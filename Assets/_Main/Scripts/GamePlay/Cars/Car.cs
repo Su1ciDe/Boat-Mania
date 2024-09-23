@@ -13,6 +13,7 @@ namespace GamePlay.Cars
 		public ColorType ColorType { get; set; }
 		public BoatSlot CurrentSlot { get; set; }
 
+		[SerializeField] private Transform model;
 		[SerializeField] private Renderer[] renderers;
 
 		[SerializeField] private float speed = 10;
@@ -51,7 +52,14 @@ namespace GamePlay.Cars
 				{
 					transform.DOLookAt(path[value], .1f);
 				}
-			}).OnComplete(() => IsMoving = false);
+			}).OnComplete(OnMoveEnd);
+		}
+
+		private void OnMoveEnd()
+		{
+			model.GetChild(0).DOLocalRotate(new Vector3(20f, 0, 0), 0.2f).SetRelative().SetLoops(2, LoopType.Yoyo);
+
+			IsMoving = false;
 		}
 	}
 }

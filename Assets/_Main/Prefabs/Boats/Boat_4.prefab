@@ -297,19 +297,19 @@ PrefabInstance:
     - target: {fileID: 1368983387811584630, guid: 176b6b7c869354fc4a3a3eab5181c5bf, type: 3}
       propertyPath: boatSlots.Array.data[0]
       value: 
-      objectReference: {fileID: 8444858386055375367}
+      objectReference: {fileID: 3479416972452519505}
     - target: {fileID: 1368983387811584630, guid: 176b6b7c869354fc4a3a3eab5181c5bf, type: 3}
       propertyPath: boatSlots.Array.data[1]
       value: 
-      objectReference: {fileID: 3877058915913806814}
+      objectReference: {fileID: 5466149629927256117}
     - target: {fileID: 1368983387811584630, guid: 176b6b7c869354fc4a3a3eab5181c5bf, type: 3}
       propertyPath: boatSlots.Array.data[2]
       value: 
-      objectReference: {fileID: 5466149629927256117}
+      objectReference: {fileID: 3877058915913806814}
     - target: {fileID: 1368983387811584630, guid: 176b6b7c869354fc4a3a3eab5181c5bf, type: 3}
       propertyPath: boatSlots.Array.data[3]
       value: 
-      objectReference: {fileID: 3479416972452519505}
+      objectReference: {fileID: 8444858386055375367}
     - target: {fileID: 1368983387811584630, guid: 176b6b7c869354fc4a3a3eab5181c5bf, type: 3}
       propertyPath: renderers.Array.data[0]
       value: 
@@ -322,6 +322,14 @@ PrefabInstance:
       propertyPath: propellers.Array.data[0]
       value: 
       objectReference: {fileID: 897367237548050675}
+    - target: {fileID: 2956003771618847589, guid: 176b6b7c869354fc4a3a3eab5181c5bf, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2956003771618847589, guid: 176b6b7c869354fc4a3a3eab5181c5bf, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.75
+      objectReference: {fileID: 0}
     - target: {fileID: 5853299716593089504, guid: 176b6b7c869354fc4a3a3eab5181c5bf, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

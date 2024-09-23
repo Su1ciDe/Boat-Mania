@@ -626,27 +626,27 @@ PrefabInstance:
     - target: {fileID: 1368983387811584630, guid: 176b6b7c869354fc4a3a3eab5181c5bf, type: 3}
       propertyPath: boatSlots.Array.data[0]
       value: 
-      objectReference: {fileID: 4139005848582598455}
+      objectReference: {fileID: 8071737987392889622}
     - target: {fileID: 1368983387811584630, guid: 176b6b7c869354fc4a3a3eab5181c5bf, type: 3}
       propertyPath: boatSlots.Array.data[1]
       value: 
-      objectReference: {fileID: 8867674394916711706}
+      objectReference: {fileID: 8282211416064575682}
     - target: {fileID: 1368983387811584630, guid: 176b6b7c869354fc4a3a3eab5181c5bf, type: 3}
       propertyPath: boatSlots.Array.data[2]
       value: 
-      objectReference: {fileID: 2024411079136532357}
+      objectReference: {fileID: 6795765421066775243}
     - target: {fileID: 1368983387811584630, guid: 176b6b7c869354fc4a3a3eab5181c5bf, type: 3}
       propertyPath: boatSlots.Array.data[3]
       value: 
-      objectReference: {fileID: 6795765421066775243}
+      objectReference: {fileID: 2024411079136532357}
     - target: {fileID: 1368983387811584630, guid: 176b6b7c869354fc4a3a3eab5181c5bf, type: 3}
       propertyPath: boatSlots.Array.data[4]
       value: 
-      objectReference: {fileID: 8282211416064575682}
+      objectReference: {fileID: 8867674394916711706}
     - target: {fileID: 1368983387811584630, guid: 176b6b7c869354fc4a3a3eab5181c5bf, type: 3}
       propertyPath: boatSlots.Array.data[5]
       value: 
-      objectReference: {fileID: 8071737987392889622}
+      objectReference: {fileID: 4139005848582598455}
     - target: {fileID: 1368983387811584630, guid: 176b6b7c869354fc4a3a3eab5181c5bf, type: 3}
       propertyPath: renderers.Array.data[0]
       value: 
@@ -663,6 +663,14 @@ PrefabInstance:
       propertyPath: propellers.Array.data[1]
       value: 
       objectReference: {fileID: 6311255221914113157}
+    - target: {fileID: 2956003771618847589, guid: 176b6b7c869354fc4a3a3eab5181c5bf, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2956003771618847589, guid: 176b6b7c869354fc4a3a3eab5181c5bf, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5853299716593089504, guid: 176b6b7c869354fc4a3a3eab5181c5bf, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
