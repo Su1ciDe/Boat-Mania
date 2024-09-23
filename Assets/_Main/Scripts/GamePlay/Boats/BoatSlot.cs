@@ -11,10 +11,9 @@ namespace GamePlay.Boats
 		{
 			Car = car;
 			Car.transform.SetParent(transform);
+			
 			if (setPosition)
-			{
 				SetPosition(Car);
-			}
 		}
 
 		public void SetPosition(Car car)

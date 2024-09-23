@@ -127,7 +127,7 @@ namespace GamePlay.Boats
 
 			IsMoving = false;
 			StopPropeller();
-			cover.SetActive(false);
+			cover.transform.DOScale(0, .25f).OnComplete(() => { cover.SetActive(false); });
 			arrow.SetActive(false);
 
 			OnBoatArrived?.Invoke();
