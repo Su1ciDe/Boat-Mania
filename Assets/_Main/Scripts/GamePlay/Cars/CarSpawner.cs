@@ -146,8 +146,8 @@ namespace GamePlay.Cars
 
 				var slot = boat.SetCar(car, false);
 				var tempPath = new List<Vector3>(path) { slot.transform.position };
-				tween = car.MovePath(tempPath.ToArray());
-				tween.onComplete += () => boat.SetToSlotPosition(car);
+				var tempTween = tween = car.MovePath(tempPath.ToArray());
+				tempTween.onComplete += () => boat.SetToSlotPosition(car);
 			}
 
 			if (tween is not null)

@@ -55,6 +55,8 @@ namespace GamePlay.Boats
 
 		private const float HIGHLIGHT_DURATION = .25f;
 		private const float HIGHLIGHT_SCALE = 1.25f;
+		private const float PATH_END_LINE = 0.82f;
+		private const float ROTATION_DURATION = .15f;
 
 		private static readonly int idleSpeed = Animator.StringToHash("IdleSpeed");
 
@@ -105,6 +107,9 @@ namespace GamePlay.Boats
 			var prevPos = Vector3.zero;
 			while (prevPos != pos)
 			{
+				if (path.GetClosestTimeOnPath(pos) > PATH_END_LINE)
+					break;
+
 				transform.position = pos;
 				transform.rotation = Quaternion.Lerp(transform.rotation, path.GetRotationAtDistance(dist, EndOfPathInstruction.Stop), rotationSpeed * Time.deltaTime);
 				dist += speed * Time.deltaTime;
@@ -112,16 +117,14 @@ namespace GamePlay.Boats
 
 				prevPos = pos;
 				pos = path.GetPointAtDistance(dist, EndOfPathInstruction.Stop);
-
-				if (Mathf.Abs(pos.x) < Mathf.Abs(holderSlot.transform.position.x))
-				{
-					break;
-				}
 			}
 
-			transform.DOMove(new Vector3(holderSlot.transform.position.x, transform.position.y, transform.position.z), speed).SetSpeedBased(true).OnComplete(() =>
+			var movePos = new Vector3(holderSlot.transform.position.x, transform.position.y, transform.position.z);
+			transform.DOLookAt(movePos, ROTATION_DURATION).SetId("rotation");
+			transform.DOMove(movePos, speed).SetSpeedBased(true).OnComplete(() =>
 			{
-				transform.DORotate(holderSlot.transform.eulerAngles, .2f);
+				DOTween.Kill("rotation");
+				transform.DORotate(holderSlot.transform.eulerAngles, ROTATION_DURATION).SetId("rotation");
 				transform.DOMove(holderSlot.transform.position, speed).SetSpeedBased(true).OnComplete(OnArrived);
 			});
 		}
