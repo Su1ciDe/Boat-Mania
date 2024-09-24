@@ -41,6 +41,7 @@ namespace Managers
 			CalculateBoats();
 		}
 
+		[Button]
 		private void CalculateBoats()
 		{
 			boatCounts.Clear();

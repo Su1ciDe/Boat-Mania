@@ -72,7 +72,7 @@ namespace GamePlay.Boats
 
 		private void Move()
 		{
-			// Check if the boat can move. If it can't, crash into the front boat
+			// Check if the boat can move. If it can't, crash into the boat in front
 			if (CheckIfBlockedByCar()) return;
 
 			var slot = Holder.Instance.GetFirstEmptySlot();
@@ -91,10 +91,10 @@ namespace GamePlay.Boats
 
 			transform.DOMove(transform.position + 100 * transform.forward, speed).SetEase(Ease.Linear).SetSpeedBased(true).OnUpdate(() =>
 			{
-				var path = PathManager.Instance.FindPath(transform.position);
-				if (path.path is not null)
+				var foundPath = PathManager.Instance.FindPath(transform.position);
+				if (foundPath.path is not null)
 				{
-					StartCoroutine(MoveToHolder(path.path.path, path.point, slot));
+					StartCoroutine(MoveToHolder(foundPath.path.path, foundPath.point, slot));
 				}
 			});
 		}
