@@ -242,6 +242,8 @@ namespace GamePlay.Boats
 			CurrentHolder.Boat = null;
 			CurrentHolder = null;
 
+			CarSpawner.Instance.StopCheckWin();
+
 			AudioManager.Instance.PlayAudio(AudioName.BoatMove);
 
 			var exitPosition = Holder.Instance.ExitPoint.transform.position;

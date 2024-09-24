@@ -165,15 +165,20 @@ namespace GamePlay.Cars
 
 		private Coroutine checkWinCoroutine;
 
-		private void CheckWin()
+		public void CheckWin()
+		{
+			StopCheckWin();
+
+			checkWinCoroutine = StartCoroutine(CheckWinCoroutine());
+		}
+
+		public void StopCheckWin()
 		{
 			if (checkWinCoroutine is not null)
 			{
 				StopCoroutine(checkWinCoroutine);
 				checkWinCoroutine = null;
 			}
-
-			checkWinCoroutine = StartCoroutine(CheckWinCoroutine());
 		}
 
 		private IEnumerator CheckWinCoroutine()
@@ -187,6 +192,8 @@ namespace GamePlay.Cars
 				LevelManager.Instance.Win();
 			}
 
+			yield return new WaitUntil(() => !Holder.Instance.IsAnyBoatLoadingCars());
+			yield return null;
 			yield return new WaitUntil(() => !Holder.Instance.IsAnyBoatLoadingCars());
 			yield return null;
 
