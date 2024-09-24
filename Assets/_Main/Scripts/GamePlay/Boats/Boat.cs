@@ -112,11 +112,16 @@ namespace GamePlay.Boats
 
 				prevPos = pos;
 				pos = path.GetPointAtDistance(dist, EndOfPathInstruction.Stop);
+
+				if (Mathf.Abs(pos.x) < Mathf.Abs(holderSlot.transform.position.x))
+				{
+					break;
+				}
 			}
 
 			transform.DOMove(new Vector3(holderSlot.transform.position.x, transform.position.y, transform.position.z), speed).SetSpeedBased(true).OnComplete(() =>
 			{
-				transform.DORotate(holderSlot.transform.eulerAngles, .25f);
+				transform.DORotate(holderSlot.transform.eulerAngles, .2f);
 				transform.DOMove(holderSlot.transform.position, speed).SetSpeedBased(true).OnComplete(OnArrived);
 			});
 		}
@@ -162,7 +167,7 @@ namespace GamePlay.Boats
 				transform.DOMove(transform.position + (hitDistance - size.y / 2f) * transform.forward, speed).SetEase(Ease.Linear).SetSpeedBased(true).OnComplete(() =>
 				{
 					//TODO: crash particle
-					var crashPos = transform.position + (hitDistance - size.y / 2f) * transform.forward;
+					var crashPos = transform.position + size.y / 2f * transform.forward;
 					ParticlePooler.Instance.Spawn("Crash", crashPos, transform.rotation);
 
 					for (var i = 0; i < hitBoats.Count; i++)
@@ -185,7 +190,6 @@ namespace GamePlay.Boats
 		{
 			if (DOTween.IsTweening(transform, true)) return;
 
-			//TODO: maybe change to be more linear
 			var dir = (boat.transform.position - transform.position).normalized;
 			transform.DOPunchRotation(crashAngle * dir, crashDuration, 7).SetTarget(transform);
 		}

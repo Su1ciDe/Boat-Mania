@@ -178,8 +178,8 @@ MonoBehaviour:
   boatLayerMask:
     serializedVersion: 2
     m_Bits: 128
-  speed: 25
-  rotationSpeed: 20
+  speed: 30
+  rotationSpeed: 25
   size: {x: 0, y: 0}
   crashAngle: 10
   crashDuration: 0.5
