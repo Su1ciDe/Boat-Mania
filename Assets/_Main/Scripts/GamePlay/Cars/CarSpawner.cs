@@ -2,6 +2,7 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using Fiber.AudioSystem;
 using Fiber.Managers;
 using Fiber.Utilities;
 using Fiber.Utilities.Extensions;
@@ -147,7 +148,13 @@ namespace GamePlay.Cars
 				var slot = boat.SetCar(car, false);
 				var tempPath = new List<Vector3>(path) { slot.transform.position };
 				var tempTween = tween = car.MovePath(tempPath.ToArray());
-				tempTween.onComplete += () => boat.SetToSlotPosition(car);
+				tempTween.onComplete += () =>
+				{
+					var slotIndex = boat.GetSlotIndex(slot);
+					if (slotIndex != -1)
+						AudioManager.Instance.PlayAudio(AudioName.LoadCar).SetPitch(1 + slotIndex * .1f);
+					boat.SetToSlotPosition(car);
+				};
 			}
 
 			if (tween is not null)

@@ -1,8 +1,7 @@
-using System.Collections.Generic;
 using System.Linq;
+using System.Collections.Generic;
 using Fiber.Managers;
 using Fiber.Utilities;
-using GamePlay;
 using GamePlay.Boats;
 using TriInspector;
 using UnityEditor;
@@ -28,7 +27,7 @@ namespace Managers
 		public Boat SpawnBoat(ColorType colorType, BoatType boatType)
 		{
 			if (boatType == BoatType.None) return null;
-			
+
 			var boat = (Boat)PrefabUtility.InstantiatePrefab(GameManager.Instance.PrefabsSO.BoatPrefabs[boatType], boatHolder);
 			boat.SetupEditor(colorType);
 
@@ -46,9 +45,8 @@ namespace Managers
 		{
 			boatCounts.Clear();
 
-			var boats = boatHolder.GetComponentsInChildren<Boat>();
-
-			foreach (var goalOption in boats)
+			var boatsInLevel = boatHolder.GetComponentsInChildren<Boat>();
+			foreach (var goalOption in boatsInLevel)
 			{
 				var found = false;
 
