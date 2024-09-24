@@ -74,6 +74,17 @@ namespace HolderSystem
 			return false;
 		}
 
+		public bool IsAnyBoatMoving()
+		{
+			for (int i = 0; i < holderSlots.Count; i++)
+			{
+				if (holderSlots[i].Boat && holderSlots[i].Boat.IsMoving)
+					return true;
+			}
+
+			return false;
+		}
+
 		#endregion
 
 #if UNITY_EDITOR
