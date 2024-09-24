@@ -13,12 +13,6 @@ namespace HolderSystem
 		public void SetBoat(Boat boat)
 		{
 			Boat = boat;
-			Boat.OnBoatArrived += OnBoatArrived;
-		}
-
-		private void OnBoatArrived()
-		{
-			Boat.OnBoatArrived -= OnBoatArrived;
 		}
 	}
 }

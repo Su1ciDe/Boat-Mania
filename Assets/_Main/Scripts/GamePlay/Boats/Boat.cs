@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using Fiber.Managers;
 using Fiber.Utilities;
+using Fiber.AudioSystem;
 using Fiber.Utilities.Extensions;
 using GamePlay.Cars;
 using HolderSystem;
@@ -55,6 +56,8 @@ namespace GamePlay.Boats
 
 		private const float HIGHLIGHT_DURATION = .25f;
 		private const float HIGHLIGHT_SCALE = 1.25f;
+		private const float PATH_END_LINE = 0.82f;
+		private const float ROTATION_DURATION = .15f;
 
 		private static readonly int idleSpeed = Animator.StringToHash("IdleSpeed");
 
@@ -105,6 +108,9 @@ namespace GamePlay.Boats
 			var prevPos = Vector3.zero;
 			while (prevPos != pos)
 			{
+				if (path.GetClosestTimeOnPath(pos) > PATH_END_LINE)
+					break;
+
 				transform.position = pos;
 				transform.rotation = Quaternion.Lerp(transform.rotation, path.GetRotationAtDistance(dist, EndOfPathInstruction.Stop), rotationSpeed * Time.deltaTime);
 				dist += speed * Time.deltaTime;
@@ -112,16 +118,14 @@ namespace GamePlay.Boats
 
 				prevPos = pos;
 				pos = path.GetPointAtDistance(dist, EndOfPathInstruction.Stop);
-
-				if (Mathf.Abs(pos.x) < Mathf.Abs(holderSlot.transform.position.x))
-				{
-					break;
-				}
 			}
 
-			transform.DOMove(new Vector3(holderSlot.transform.position.x, transform.position.y, transform.position.z), speed).SetSpeedBased(true).OnComplete(() =>
+			var movePos = new Vector3(holderSlot.transform.position.x, transform.position.y, transform.position.z);
+			transform.DOLookAt(movePos, ROTATION_DURATION).SetId("rotation");
+			transform.DOMove(movePos, speed).SetSpeedBased(true).OnComplete(() =>
 			{
-				transform.DORotate(holderSlot.transform.eulerAngles, .2f);
+				DOTween.Kill("rotation");
+				transform.DORotate(holderSlot.transform.eulerAngles, ROTATION_DURATION).SetId("rotation");
 				transform.DOMove(holderSlot.transform.position, speed).SetSpeedBased(true).OnComplete(OnArrived);
 			});
 		}
@@ -141,7 +145,7 @@ namespace GamePlay.Boats
 
 		private bool CheckIfBlockedByCar()
 		{
-			var hitBoats = new List<Boat>();
+			var hitBoats = new List<(Boat boat, float hitDistance)>();
 			var hitDistance = float.MaxValue;
 
 			for (int i = 0; i < rayPoints.Length; i++)
@@ -149,41 +153,39 @@ namespace GamePlay.Boats
 				if (!Physics.Raycast(rayPoints[i].position, rayPoints[i].forward, out var hit, 100, boatLayerMask)) continue;
 				if (!hit.rigidbody || !hit.rigidbody.TryGetComponent(out Boat car)) continue;
 
-				hitBoats.AddIfNotContains(car);
+				hitBoats.AddIfNotContains((car, hit.distance));
 				if (hitDistance > hit.distance)
 					hitDistance = hit.distance;
 			}
 
-			if (hitBoats.Count == 0)
-			{
-				return false;
-			}
-			else
-			{
-				IsMoving = true;
-				MovePropeller();
+			if (hitBoats.Count == 0) return false;
 
-				var prevPos = transform.position;
-				transform.DOMove(transform.position + (hitDistance - size.y / 2f) * transform.forward, speed).SetEase(Ease.Linear).SetSpeedBased(true).OnComplete(() =>
+			IsMoving = true;
+			MovePropeller();
+
+			var prevPos = transform.position;
+			transform.DOMove(transform.position + (hitDistance - size.y / 2f) * transform.forward, speed).SetEase(Ease.Linear).SetSpeedBased(true).OnComplete(() =>
+			{
+				var crashPos = transform.position + size.y / 2f * transform.forward;
+				ParticlePooler.Instance.Spawn("Crash", crashPos, transform.rotation);
+				AudioManager.Instance.PlayAudio(AudioName.Crash).SetVolume(0.6f);
+
+				for (var i = 0; i < hitBoats.Count; i++)
 				{
-					//TODO: crash particle
-					var crashPos = transform.position + size.y / 2f * transform.forward;
-					ParticlePooler.Instance.Spawn("Crash", crashPos, transform.rotation);
-
-					for (var i = 0; i < hitBoats.Count; i++)
+					if (Mathf.Approximately(hitDistance, hitBoats[i].hitDistance))
 					{
-						hitBoats[i].Crash(this);
+						hitBoats[i].boat.Crash(this);
 					}
+				}
 
-					transform.DOMove(prevPos, speed).SetEase(Ease.Linear).SetSpeedBased(true).OnComplete(() =>
-					{
-						IsMoving = false;
-						StopPropeller();
-					});
+				transform.DOMove(prevPos, speed).SetEase(Ease.Linear).SetSpeedBased(true).OnComplete(() =>
+				{
+					IsMoving = false;
+					StopPropeller();
 				});
+			});
 
-				return true;
-			}
+			return true;
 		}
 
 		private void Crash(Boat boat)
@@ -239,6 +241,8 @@ namespace GamePlay.Boats
 
 			CurrentHolder.Boat = null;
 			CurrentHolder = null;
+
+			AudioManager.Instance.PlayAudio(AudioName.BoatMove);
 
 			var exitPosition = Holder.Instance.ExitPoint.transform.position;
 			var pos = transform.position + (transform.position.z - exitPosition.z) * -transform.forward;
@@ -305,6 +309,17 @@ namespace GamePlay.Boats
 			}
 
 			return null;
+		}
+
+		public int GetSlotIndex(BoatSlot slot)
+		{
+			for (var i = 0; i < boatSlots.Length; i++)
+			{
+				if (boatSlots[i].Equals(slot))
+					return i;
+			}
+
+			return -1;
 		}
 
 		#endregion
