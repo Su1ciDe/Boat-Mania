@@ -248,7 +248,7 @@ namespace GamePlay.Boats
 			CurrentHolder.Boat = null;
 			CurrentHolder = null;
 
-			CarSpawner.Instance.StopCheckWin();
+			CarSpawner.Instance.CheckWin();
 
 			AudioManager.Instance.PlayAudio(AudioName.BoatMove);
 
