@@ -135,7 +135,7 @@ namespace GamePlay.Cars
 
 			var emptySlotCount = boat.GetEmptySlotCount();
 			var carCount = GetCarCountByType(boat.ColorType, emptySlotCount);
-			var path = new List<Vector3> { exitPoint.position, new Vector3(boat.transform.position.x, exitPoint.position.y, exitPoint.position.z), boat.EnterPoint.position };
+			var path = new List<Vector3> { exitPoint.position, new Vector3(boat.EnterPoint.position.x, exitPoint.position.y, exitPoint.position.z), boat.EnterPoint.position };
 			if (carCount > 0)
 				boat.IsLoadingCars = true;
 			Tween tween = null;
@@ -148,6 +148,7 @@ namespace GamePlay.Cars
 
 				var slot = boat.SetCar(car, false);
 				var tempPath = new List<Vector3>(path) { slot.transform.position };
+				car.transform.DOScale(0.5f, .5f);
 				var tempTween = tween = car.MovePath(tempPath.ToArray());
 				tempTween.onComplete += () =>
 				{

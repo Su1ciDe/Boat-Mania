@@ -18,6 +18,7 @@ namespace GamePlay.Cars
 
 		[SerializeField] private float speed = 10;
 		[SerializeField] private float rotationSpeed = 10;
+		private const float ROTATION_DURATION = .1F;
 
 		private static readonly int idleSpeed = Animator.StringToHash("IdleSpeed");
 
@@ -50,7 +51,7 @@ namespace GamePlay.Cars
 			{
 				if (path.Length > value)
 				{
-					transform.DOLookAt(path[value], .1f);
+					transform.DOLookAt(path[value], ROTATION_DURATION);
 				}
 			}).OnComplete(OnMoveEnd);
 		}

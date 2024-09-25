@@ -36,20 +36,22 @@ namespace GamePlay.Boats
 		[SerializeField] private BoatSlot[] boatSlots;
 		[SerializeField] private Transform[] rayPoints;
 		[SerializeField] private Transform model;
+		[SerializeField] private Renderer[] renderers;
 		[SerializeField] private Transform enterPoint;
 		public Transform EnterPoint => enterPoint;
+		[SerializeField] private Transform ramp;
+		[SerializeField] private float rampSize;
 		[SerializeField] private Collider col;
-		[SerializeField] private Renderer[] renderers;
 		[SerializeField] private GameObject cover;
 		[SerializeField] private GameObject arrow;
 		[SerializeField] private Transform[] propellers;
-		[Space]
-		[SerializeField] private LayerMask boatLayerMask;
 
 		[Title("Parameters")]
 		[SerializeField] private float speed = 5;
 		[SerializeField] private float rotationSpeed = 10;
 		[SerializeField] private Vector2 size;
+		[Space]
+		[SerializeField] private LayerMask boatLayerMask;
 		[Space]
 		[SerializeField] private float crashAngle = 10;
 		[SerializeField] private float crashDuration = 0.5f;
@@ -57,7 +59,7 @@ namespace GamePlay.Boats
 		private const float HIGHLIGHT_DURATION = .25f;
 		private const float HIGHLIGHT_SCALE = 1.25f;
 		private const float PATH_END_LINE = 0.82f;
-		private const float ROTATION_DURATION = .15f;
+		private const float ROTATION_DURATION = .1f;
 
 		private static readonly int idleSpeed = Animator.StringToHash("IdleSpeed");
 
@@ -132,11 +134,13 @@ namespace GamePlay.Boats
 
 		private void OnArrived()
 		{
-			transform.localScale = 1.5f * Vector3.one;
-
 			IsMoving = false;
+
+			transform.localScale = 1.5f * Vector3.one;
 			StopPropeller();
-			cover.transform.DOScale(0, .25f).OnComplete(() => { cover.SetActive(false); });
+			cover.transform.DOScale(0, .25f).OnComplete(() => cover.SetActive(false));
+			ramp.gameObject.SetActive(true);
+			ramp.DOScale(rampSize * Vector3.forward, .25f).SetRelative(true);
 			arrow.SetActive(false);
 
 			OnBoatArrived?.Invoke();
@@ -238,6 +242,8 @@ namespace GamePlay.Boats
 			yield return null;
 			yield return new WaitUntil(() => !IsAnyCarMoving());
 			yield return null;
+
+			ramp.DOScale(new Vector3(ramp.localScale.x, ramp.localScale.y, 0), .2f).OnComplete(() => ramp.gameObject.SetActive(false));
 
 			CurrentHolder.Boat = null;
 			CurrentHolder = null;

@@ -1798,9 +1798,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   iphoneCam: {fileID: 887650352}
-  iphoneShadowDistance: 250
+  iphoneShadowDistance: 200
   ipadCam: {fileID: 0}
-  ipadShadowDistance: 250
+  ipadShadowDistance: 200
 --- !u!1001 &1767161694
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1816,6 +1816,10 @@ PrefabInstance:
     - target: {fileID: 4583727957225516021, guid: 8c5b5dccb5a0b49d88a0a560ce89ed8d, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -84.400024
+      objectReference: {fileID: 0}
+    - target: {fileID: 5741671216237824959, guid: 8c5b5dccb5a0b49d88a0a560ce89ed8d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8379791167612546944, guid: 8c5b5dccb5a0b49d88a0a560ce89ed8d, type: 3}
       propertyPath: m_Pivot.x
@@ -2817,11 +2821,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7914625326510753053, guid: bbc57307e5c19443faf896e365444f75, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 144.50446
+      value: 119.34884
       objectReference: {fileID: 0}
     - target: {fileID: 7914625326510753053, guid: bbc57307e5c19443faf896e365444f75, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -90.97159
+      value: -69.23232
       objectReference: {fileID: 0}
     - target: {fileID: 7914625326510753053, guid: bbc57307e5c19443faf896e365444f75, type: 3}
       propertyPath: m_LocalRotation.w
