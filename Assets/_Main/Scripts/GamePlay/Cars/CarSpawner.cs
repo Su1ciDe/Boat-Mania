@@ -97,7 +97,7 @@ namespace GamePlay.Cars
 
 				i++;
 			}
-			
+
 			// Spawn
 			var spawnAmount = Mathf.Clamp(advanceAmount, 0, carColors.Count);
 			for (int j = 0; j < spawnAmount; j++)
@@ -186,7 +186,9 @@ namespace GamePlay.Cars
 		{
 			yield return null;
 			yield return new WaitUntil(() => !IsAdvancing);
-			yield return new WaitForSeconds(1);
+			yield return new WaitForSeconds(1f);
+			yield return new WaitUntil(() => !Holder.Instance.IsAnyBoatLoadingCars());
+			yield return null;
 
 			if (carQueue.Count.Equals(0) && carColors.Count.Equals(0))
 			{

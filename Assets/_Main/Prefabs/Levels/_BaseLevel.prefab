@@ -100,6 +100,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8080467333884058050, guid: cae9fab7baf8b400ea4c5a5f69da7e3c, type: 3}
+      propertyPath: editorData.vertexPathUpToDate
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -247,8 +251,16 @@ PrefabInstance:
       value: CarSpawner
       objectReference: {fileID: 0}
     - target: {fileID: 9042759089720473966, guid: 4bf9a173886e049b09fb362dd4be7e16, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9042759089720473966, guid: 4bf9a173886e049b09fb362dd4be7e16, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.84
+      objectReference: {fileID: 0}
+    - target: {fileID: 9042759089720473966, guid: 4bf9a173886e049b09fb362dd4be7e16, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 33.27
+      value: 36.77
       objectReference: {fileID: 0}
     - target: {fileID: 9042759089720473966, guid: 4bf9a173886e049b09fb362dd4be7e16, type: 3}
       propertyPath: m_LocalRotation.w
