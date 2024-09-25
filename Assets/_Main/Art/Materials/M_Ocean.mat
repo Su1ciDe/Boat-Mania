@@ -81,7 +81,7 @@ Material:
     - _Depth_Distortion_Strength: 0.04
     - _Depth_Height: -2
     - _Depth_Height_Ratio: 0.01
-    - _Foam_Length: 0.4
+    - _Foam_Length: 1
     - _Gradient_Hardness: 0.01
     - _Gradient_Intensity: 2
     - _Gradient_Radius: 5
@@ -103,7 +103,7 @@ Material:
     - _Depth_Distortion_Speed: {r: 0.02, g: 0.01, b: 0, a: 0}
     - _Depth_Distortion_Tile: {r: 0.01, g: 0.01, b: 0, a: 0}
     - _Depth_Tile: {r: 0.01, g: 0.01, b: 0, a: 0}
-    - _Foam_Color: {r: 1, g: 1, b: 1, a: 0}
+    - _Foam_Color: {r: 0.72169816, g: 0.8634602, b: 0.9622642, a: 1}
     - _Foam_Speed: {r: -0.02, g: -0.02, b: 0, a: 0}
     - _Foam_Tile: {r: 0.025, g: 0.025, b: 0, a: 0}
     - _Main_Color: {r: 0, g: 0.5076535, b: 0.7529412, a: 0}
