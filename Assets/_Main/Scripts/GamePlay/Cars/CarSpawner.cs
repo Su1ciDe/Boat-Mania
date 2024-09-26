@@ -191,6 +191,7 @@ namespace GamePlay.Cars
 
 			if (carQueue.Count.Equals(0) && carColors.Count.Equals(0))
 			{
+				yield return new WaitForSeconds(.5f);
 				LevelManager.Instance.Win();
 			}
 

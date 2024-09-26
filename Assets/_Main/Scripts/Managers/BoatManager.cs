@@ -15,6 +15,7 @@ namespace Managers
 		[SerializeField] private Transform boatHolder;
 
 		private List<Boat> boats;
+		public List<Boat> Boats => boats;
 
 		private void Awake()
 		{
