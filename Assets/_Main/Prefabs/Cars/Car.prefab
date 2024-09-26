@@ -81,7 +81,7 @@ MonoBehaviour:
   model: {fileID: 7126599225857809937}
   renderers:
   - {fileID: 4499589966051611031}
-  speed: 35
+  speed: 30
   rotationSpeed: 90
 --- !u!95 &3599175093607550362
 Animator:
