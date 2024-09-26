@@ -85,6 +85,8 @@ namespace GamePlay.Boats
 				return;
 			}
 
+			AudioManager.Instance.PlayAudio(AudioName.BoatTap);
+
 			slot.SetBoat(this);
 			CurrentHolder = slot;
 
@@ -265,7 +267,7 @@ namespace GamePlay.Boats
 
 			CarSpawner.Instance.CheckWin();
 
-			AudioManager.Instance.PlayAudio(AudioName.BoatMove);
+			AudioManager.Instance.PlayAudio(AudioName.BoatMove).SetVolume(0.7f);
 
 			var exitPosition = Holder.Instance.ExitPoint.transform.position;
 			var pos = transform.position + (transform.position.z - exitPosition.z) * -transform.forward;

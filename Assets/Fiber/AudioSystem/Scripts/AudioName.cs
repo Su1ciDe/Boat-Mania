@@ -19,5 +19,6 @@ namespace Fiber.AudioSystem
 		Crash,
 		LoadCar,
 		BoatMove,
+		BoatTap,
 	}
 }
