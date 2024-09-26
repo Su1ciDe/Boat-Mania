@@ -67,6 +67,7 @@ namespace GamePlay.Boats
 		public event UnityAction OnBoatArrived;
 		public static event UnityAction<Boat> OnBoatTapped;
 		public static event UnityAction<Boat> OnBoatArrivedAny;
+		public static event UnityAction<Boat> OnBoatExited;
 
 		private void Awake()
 		{
@@ -276,6 +277,8 @@ namespace GamePlay.Boats
 				transform.DOLookAt(new Vector3(-exitPosition.x, exitPosition.y, exitPosition.z), 0.1f, AxisConstraint.None, Vector3.up);
 				transform.DOMove(exitPosition, speed).SetSpeedBased(true).OnComplete(() =>
 				{
+					OnBoatExited?.Invoke(this);
+
 					transform.DOKill();
 					Destroy(gameObject);
 				});

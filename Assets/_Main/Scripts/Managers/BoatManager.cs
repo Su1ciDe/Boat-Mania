@@ -22,6 +22,21 @@ namespace Managers
 			boats = boatHolder.GetComponentsInChildren<Boat>().ToList();
 		}
 
+		private void OnEnable()
+		{
+			Boat.OnBoatExited += OnBoatExited;
+		}
+
+		private void OnDisable()
+		{
+			Boat.OnBoatExited -= OnBoatExited;
+		}
+
+		private void OnBoatExited(Boat boat)
+		{
+			boats.Remove(boat);
+		}
+
 		#region Editor
 
 #if UNITY_EDITOR

@@ -2,6 +2,7 @@ using System.Collections;
 using Fiber.UI;
 using Fiber.Managers;
 using Fiber.Utilities;
+using GamePlay.Boats;
 using GamePlay.Player;
 using UnityEngine;
 
@@ -80,6 +81,11 @@ namespace Managers
 
 		#region Level 1
 
+		private Boat boat1Level1;
+		private Boat boat2Level1;
+		private Boat boat3Level1;
+		private Boat boat4Level1;
+
 		private IEnumerator Level1Tutorial()
 		{
 			Player.Instance.CanInput = false;
@@ -88,15 +94,19 @@ namespace Managers
 			yield return new WaitForSeconds(0.5f);
 			Player.Instance.CanInput = false;
 
-			var boat = BoatManager.Instance.Boats[0];
-			var pos = boat.transform.position;
+			boat1Level1 = BoatManager.Instance.Boats[0];
+			boat2Level1 = BoatManager.Instance.Boats[1];
+			boat3Level1 = BoatManager.Instance.Boats[2];
+			boat4Level1 = BoatManager.Instance.Boats[3];
+
+			var pos = boat1Level1.transform.position;
 
 			tutorialUI.ShowText("Tap to move the boats.");
 			tutorialUI.ShowFocus(pos, Helper.MainCamera);
 			tutorialUI.ShowTap(pos, Helper.MainCamera);
 			tutorialUI.SetupFakeButton(() =>
 			{
-				boat.Move();
+				boat1Level1.Move();
 				StartCoroutine(OnBoatMoveLevel1_1());
 			}, pos, Helper.MainCamera);
 		}
@@ -115,12 +125,11 @@ namespace Managers
 
 			yield return new WaitForSeconds(2);
 
-			var boat = BoatManager.Instance.Boats[1];
-			var pos = boat.transform.position;
+			var pos = boat2Level1.transform.position;
 			tutorialUI.ShowTap(pos, Helper.MainCamera);
 			tutorialUI.SetupFakeButton(() =>
 			{
-				boat.Move();
+				boat2Level1.Move();
 				StartCoroutine(OnBoatMoveLevel1_2());
 			}, pos, Helper.MainCamera);
 		}
@@ -134,12 +143,11 @@ namespace Managers
 
 			yield return null;
 
-			var boat = BoatManager.Instance.Boats[2];
-			var pos = boat.transform.position;
+			var pos = boat3Level1.transform.position;
 			tutorialUI.ShowTap(pos, Helper.MainCamera);
 			tutorialUI.SetupFakeButton(() =>
 			{
-				boat.Move();
+				boat3Level1.Move();
 				StartCoroutine(OnBoatMoveLevel1_3());
 			}, pos, Helper.MainCamera);
 		}
@@ -153,12 +161,11 @@ namespace Managers
 
 			yield return null;
 
-			var boat = BoatManager.Instance.Boats[3];
-			var pos = boat.transform.position;
+			var pos = boat4Level1.transform.position;
 			tutorialUI.ShowTap(pos, Helper.MainCamera);
 			tutorialUI.SetupFakeButton(() =>
 			{
-				boat.Move();
+				boat4Level1.Move();
 				Level1TutorialComplete();
 			}, pos, Helper.MainCamera);
 		}
@@ -172,11 +179,16 @@ namespace Managers
 
 			tutorialUI.SetBlocker(false);
 			Player.Instance.CanInput = true;
+
+			boat1Level1 = boat2Level1 = boat3Level1 = boat4Level1 = null;
 		}
 
 		#endregion
 
 		#region Level 2
+
+		private Boat boat1Level2;
+		private Boat boat2Level2;
 
 		private IEnumerator Level2Tutorial()
 		{
@@ -186,14 +198,16 @@ namespace Managers
 			yield return new WaitForSeconds(0.5f);
 			Player.Instance.CanInput = false;
 
-			var boat = BoatManager.Instance.Boats[1];
-			var pos = boat.transform.position;
+			boat1Level2 = BoatManager.Instance.Boats[1];
+			boat2Level2 = BoatManager.Instance.Boats[0];
+
+			var pos = boat1Level2.transform.position;
 
 			tutorialUI.ShowFocus(pos, Helper.MainCamera);
 			tutorialUI.ShowTap(pos, Helper.MainCamera);
 			tutorialUI.SetupFakeButton(() =>
 			{
-				boat.Move();
+				boat1Level2.Move();
 				StartCoroutine(OnBoatMoveLevel2_1());
 			}, pos, Helper.MainCamera);
 		}
@@ -212,14 +226,13 @@ namespace Managers
 
 			yield return new WaitForSeconds(2);
 
-			var boat = BoatManager.Instance.Boats[0];
-			var pos = boat.transform.position;
+			var pos = boat2Level2.transform.position;
 
 			tutorialUI.ShowFocus(pos, Helper.MainCamera);
 			tutorialUI.ShowTap(pos, Helper.MainCamera);
 			tutorialUI.SetupFakeButton(() =>
 			{
-				boat.Move();
+				boat2Level2.Move();
 				StartCoroutine(OnBoatMoveLevel2_2());
 			}, pos, Helper.MainCamera);
 		}
@@ -233,12 +246,11 @@ namespace Managers
 
 			yield return null;
 
-			var boat = BoatManager.Instance.Boats[1];
-			var pos = boat.transform.position;
+			var pos = boat1Level2.transform.position;
 			tutorialUI.ShowTap(pos, Helper.MainCamera);
 			tutorialUI.SetupFakeButton(() =>
 			{
-				boat.Move();
+				boat1Level2.Move();
 				Level2TutorialComplete();
 			}, pos, Helper.MainCamera);
 		}
@@ -252,6 +264,8 @@ namespace Managers
 
 			tutorialUI.SetBlocker(false);
 			Player.Instance.CanInput = true;
+
+			boat1Level2 = boat2Level2 = null;
 		}
 
 		#endregion
