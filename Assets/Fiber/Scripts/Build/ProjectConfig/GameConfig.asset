@@ -14,17 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   companyName: Fiber Games
   productName: Boat Mania!
-  productIcon: {fileID: 2800000, guid: 0049bd813b4544af79cb4fe539f26a73, type: 3}
+  productIcon: {fileID: 2800000, guid: 65672a2f4f9dcee489c67958a3313544, type: 3}
   version: 0.1
   iOSBundleId: com.FiberGames.BoatMania
   teamId: 9JRFGT2VDU
   iOSBuildNo: 0
-  androidBundleId: com.fibergames.game
+  androidBundleId: com.FiberGames.BoatMania
   androidBuildNo: 1
   facebookId: 1677962216379508
   facebookClientToken: 04869af744393348f129506e96bb86eb
   gameId: db41cc2a16df8a186af49ec2cabf6559e4179e4dca3588b3d567116897da3f1d
   gameSecret: 5f3307e8284c0ca24bda392cd0d295e974c14d684b8eef0fd9c35e8694658891
-  background: {fileID: 0}
-  loadingScreenLogo: {fileID: 0}
-  loadingScreenTitle: {fileID: 0}
+  background: {fileID: 21300000, guid: eff2070097b634b4fa2475a3f9fb99fa, type: 3}
+  loadingScreenLogo: {fileID: 21300000, guid: f88d69bd49fd8034d90dba5a1105f960, type: 3}
+  loadingScreenTitle: {fileID: 21300000, guid: 62a811844cc3ea14db5352cacc63c88e, type: 3}
