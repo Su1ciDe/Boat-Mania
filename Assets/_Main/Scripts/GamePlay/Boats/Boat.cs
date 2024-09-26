@@ -11,6 +11,7 @@ using Lofelt.NiceVibrations;
 using Managers;
 using PathCreation;
 using TriInspector;
+using UI;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -72,7 +73,7 @@ namespace GamePlay.Boats
 			GetComponent<Animator>().SetFloat(idleSpeed, Random.Range(0.75f, 1.25f));
 		}
 
-		private void Move()
+		public void Move()
 		{
 			// Check if the boat can move. If it can't, crash into the boat in front
 			if (CheckIfBlockedByCar()) return;
@@ -80,24 +81,36 @@ namespace GamePlay.Boats
 			var slot = Holder.Instance.GetFirstEmptySlot();
 			if (!slot)
 			{
-				//TODO: show message
+				WarningUI.Instance.ShowWarning("No empty space!");
 				return;
 			}
 
 			slot.SetBoat(this);
 			CurrentHolder = slot;
 
+			if (Holder.Instance.GetEmptySlotCount().Equals(1))
+			{
+				WarningUI.Instance.ShowWarning("One space left!");
+			}
+
 			col.enabled = false;
 			IsMoving = true;
 			MovePropeller();
 
-			transform.DOMove(transform.position + 100 * transform.forward, speed).SetEase(Ease.Linear).SetSpeedBased(true).OnUpdate(() =>
+			transform.DOMove(transform.position + 50 * transform.forward, speed).SetEase(Ease.Linear).SetSpeedBased(true).OnUpdate(() =>
 			{
 				var foundPath = PathManager.Instance.FindPath(transform.position);
 				if (foundPath.path is not null)
 				{
 					StartCoroutine(MoveToHolder(foundPath.path.path, foundPath.point, slot));
 				}
+			}).OnComplete(() =>
+			{
+				// Fail safe
+				transform.position = CurrentHolder.transform.position;
+				transform.rotation = CurrentHolder.transform.rotation;
+
+				OnArrived();
 			});
 		}
 
@@ -142,6 +155,8 @@ namespace GamePlay.Boats
 			ramp.gameObject.SetActive(true);
 			ramp.DOScale(rampSize * Vector3.forward, .25f).SetRelative(true);
 			arrow.SetActive(false);
+
+			transform.DORotate(CurrentHolder.transform.eulerAngles, ROTATION_DURATION);
 
 			OnBoatArrived?.Invoke();
 			OnBoatArrivedAny?.Invoke(this);
