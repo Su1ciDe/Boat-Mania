@@ -702,7 +702,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3930341068101061373, guid: 8f2be9d31462041a2bdb434ab6e22c7e, type: 3}
       propertyPath: m_Name
-      value: "Level28 en kalabal\u0131k level (ata Cpi basitle\u015Ftirilmi\u015F)"
+      value: Level28 40 boats
       objectReference: {fileID: 0}
     - target: {fileID: 3930341068101061373, guid: 8f2be9d31462041a2bdb434ab6e22c7e, type: 3}
       propertyPath: m_IsActive
