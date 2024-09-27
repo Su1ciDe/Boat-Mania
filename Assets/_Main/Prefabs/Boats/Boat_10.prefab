@@ -436,6 +436,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6342010375155747653}
     - target: {fileID: 1368983387811584630, guid: 176b6b7c869354fc4a3a3eab5181c5bf, type: 3}
+      propertyPath: speed
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 1368983387811584630, guid: 176b6b7c869354fc4a3a3eab5181c5bf, type: 3}
       propertyPath: size.x
       value: 2.5
       objectReference: {fileID: 0}
@@ -450,6 +454,10 @@ PrefabInstance:
     - target: {fileID: 1368983387811584630, guid: 176b6b7c869354fc4a3a3eab5181c5bf, type: 3}
       propertyPath: rampSize
       value: 1.77
+      objectReference: {fileID: 0}
+    - target: {fileID: 1368983387811584630, guid: 176b6b7c869354fc4a3a3eab5181c5bf, type: 3}
+      propertyPath: rotationSpeed
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 1368983387811584630, guid: 176b6b7c869354fc4a3a3eab5181c5bf, type: 3}
       propertyPath: boatSlots.Array.size

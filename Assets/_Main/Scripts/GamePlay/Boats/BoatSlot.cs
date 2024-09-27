@@ -1,3 +1,4 @@
+using DG.Tweening;
 using GamePlay.Cars;
 using UnityEngine;
 
@@ -11,13 +12,14 @@ namespace GamePlay.Boats
 		{
 			Car = car;
 			Car.transform.SetParent(transform);
-			
+
 			if (setPosition)
 				SetPosition(Car);
 		}
 
 		public void SetPosition(Car car)
 		{
+			car.transform.DOKill();
 			car.transform.localPosition = Vector3.zero;
 			car.transform.localRotation = Quaternion.identity;
 		}

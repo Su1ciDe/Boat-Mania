@@ -176,8 +176,8 @@ MonoBehaviour:
   cover: {fileID: 0}
   arrow: {fileID: 300864476081094912}
   propellers: []
-  speed: 30
-  rotationSpeed: 25
+  speed: 35
+  rotationSpeed: 40
   size: {x: 0, y: 0}
   boatLayerMask:
     serializedVersion: 2

@@ -81,7 +81,7 @@ MonoBehaviour:
   model: {fileID: 7126599225857809937}
   renderers:
   - {fileID: 4499589966051611031}
-  speed: 20
+  speed: 30
   rotationSpeed: 90
 --- !u!95 &3599175093607550362
 Animator:
@@ -114,15 +114,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 12fd8795bbad0814fa07def3a6b3054d, type: 3}
       propertyPath: m_LocalScale.x
-      value: 225
+      value: 250.00002
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 12fd8795bbad0814fa07def3a6b3054d, type: 3}
       propertyPath: m_LocalScale.y
-      value: 225
+      value: 250.00002
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 12fd8795bbad0814fa07def3a6b3054d, type: 3}
       propertyPath: m_LocalScale.z
-      value: 225
+      value: 250.00002
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 12fd8795bbad0814fa07def3a6b3054d, type: 3}
       propertyPath: m_LocalPosition.x

@@ -41,6 +41,29 @@ namespace HolderSystem
 
 		#region Helpers
 
+		public int GetFilledSlotCount()
+		{
+			int count = 0;
+			for (var i = 0; i < holderSlots.Count; i++)
+			{
+				if (holderSlots[i].Boat)
+					count++;
+			}
+
+			return count;
+		}
+		public int GetEmptySlotCount()
+		{
+			int count = 0;
+			for (var i = 0; i < holderSlots.Count; i++)
+			{
+				if (!holderSlots[i].Boat)
+					count++;
+			}
+
+			return count;
+		}
+
 		public HolderSlot GetFirstEmptySlot()
 		{
 			for (var i = 0; i < holderSlots.Count; i++)

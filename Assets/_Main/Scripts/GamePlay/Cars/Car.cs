@@ -58,6 +58,7 @@ namespace GamePlay.Cars
 
 		private void OnMoveEnd()
 		{
+			model.GetChild(0).DOComplete();
 			model.GetChild(0).DOLocalRotate(new Vector3(20f, 0, 0), 0.1f).SetEase(Ease.InOutSine).SetRelative().SetLoops(2, LoopType.Yoyo);
 
 			IsMoving = false;

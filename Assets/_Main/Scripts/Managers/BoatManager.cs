@@ -15,10 +15,26 @@ namespace Managers
 		[SerializeField] private Transform boatHolder;
 
 		private List<Boat> boats;
+		public List<Boat> Boats => boats;
 
 		private void Awake()
 		{
 			boats = boatHolder.GetComponentsInChildren<Boat>().ToList();
+		}
+
+		private void OnEnable()
+		{
+			Boat.OnBoatExited += OnBoatExited;
+		}
+
+		private void OnDisable()
+		{
+			Boat.OnBoatExited -= OnBoatExited;
+		}
+
+		private void OnBoatExited(Boat boat)
+		{
+			boats.Remove(boat);
 		}
 
 		#region Editor
